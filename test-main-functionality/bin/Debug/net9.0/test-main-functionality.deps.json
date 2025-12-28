@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "test-main-functionality/1.0.0": {
+        "runtime": {
+          "test-main-functionality.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "test-main-functionality/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

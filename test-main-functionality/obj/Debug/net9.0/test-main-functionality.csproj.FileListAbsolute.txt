@@ -1,0 +1,15 @@
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\bin\Debug\net9.0\test-main-functionality.exe
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\bin\Debug\net9.0\test-main-functionality.deps.json
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\bin\Debug\net9.0\test-main-functionality.runtimeconfig.json
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\bin\Debug\net9.0\test-main-functionality.dll
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\bin\Debug\net9.0\test-main-functionality.pdb
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\obj\Debug\net9.0\test-main-functionality.GeneratedMSBuildEditorConfig.editorconfig
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\obj\Debug\net9.0\test-main-functionality.AssemblyInfoInputs.cache
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\obj\Debug\net9.0\test-main-functionality.AssemblyInfo.cs
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\obj\Debug\net9.0\test-main-functionality.csproj.CoreCompileInputs.cache
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\obj\Debug\net9.0\test-main-functionality.sourcelink.json
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\obj\Debug\net9.0\test-main-functionality.dll
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\obj\Debug\net9.0\refint\test-main-functionality.dll
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\obj\Debug\net9.0\test-main-functionality.pdb
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\obj\Debug\net9.0\test-main-functionality.genruntimeconfig.cache
+L:\VUZ_programms\3k-1s\Kursovaya\KT_Data_Support\test-main-functionality\obj\Debug\net9.0\ref\test-main-functionality.dll
