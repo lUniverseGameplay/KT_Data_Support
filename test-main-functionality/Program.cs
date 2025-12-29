@@ -57,7 +57,7 @@ namespace Programm
 
     class Start
     {
-        static string add_new_team(string name, string rules, Operative_selection_rules oper_selection, List<Stratagem> ploys, string faction_equip, string arhetypes, List<string> operatives_data)
+        static string add_new_team(JsonSerializerOptions options, string name, string rules, Operative_selection_rules oper_selection, List<Stratagem> ploys, string faction_equip, string arhetypes, List<string> operatives_data)
         {
             // проверки на пустые поля
             if (name is null | name == "")
@@ -88,18 +88,26 @@ namespace Programm
             {
                 return "Wrong datacards quantity. Must be min 1 operative's datacard!";
             }
+            /*using (FileStream fs = new FileStream("info/kill_teams.json", FileMode.OpenOrCreate))
+            {
+                Team new_team = new Team { Name = name, Rules = rules, Operative_selection = oper_selection, Ploys = ploys, Faction_equipment = faction_equip, Archetypes = arhetypes, Datacards = operatives_data};
+                JsonSerializer.SerializeAsync(fs, new_team, options);
+            }*/
             return $"New team '{name}' succsesfully added";
         }
 
         static void Main() {
-            var options = new JsonSerializerOptions
+            JsonSerializerOptions options = new JsonSerializerOptions
             {
                 WriteIndented = true,  // Включаем красивое форматирование
                 DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull  // Игнорируем null значения
             };
 
-            /*Console.WriteLine(add_new_team("Deathwatch", "None", new Operative_selection_rules {quantity=5, operatives = new List<string>() { "Tom", "Bob", "Sam" }, Limits="None"}, 
-            new List<Stratagem>() {new Stratagem {Type="Strategy ploy", Name="None", Content="None"}}, "None", "None", new List<string>() {}));*/
+            /*Console.WriteLine(add_new_team(options, "Deathwatch", "None", new Operative_selection_rules {quantity=5, operatives = new List<string>() { "Tom", "Bob", "Sam" }, Limits="None"}, 
+            new List<Stratagem>() {new Stratagem {Type="Strategy ploy", Name="None", Content="None"}}, "None", "Seek!Security", new List<string>() {"Deathwatch gunner veteran"}));*/
+            
+            //
+            string team_name = "Deathwatch";
         }
     }
 }

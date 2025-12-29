@@ -1,0 +1,25 @@
+{
+  "Name": "Deathwatch",
+  "Rules": "None",
+  "Operative_selection": {
+    "quantity": 5,
+    "operatives": [
+      "Tom",
+      "Bob",
+      "Sam"
+    ],
+    "Limits": "None"
+  },
+  "Ploys": [
+    {
+      "Type": "Strategy ploy",
+      "Name": "None",
+      "Content": "None"
+    }
+  ],
+  "Faction_equipment": "None",
+  "Archetypes": "Seek!Security",
+  "Datacards": [
+    "Deathwatch gunner veteran"
+  ]
+}
