@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "Team_name": "Deathwatch",
+    "Type": "Ranged",
+    "Name": "Plasma pistol (standard)",
+    "Attack": 4,
+    "Hit": 3,
+    "Normal_damage": 3,
+    "Critical_damage": 5,
+    "Rules": [
+      "Range 8\u0022",
+      "Piercing 1"
+    ]
+  }
+]
