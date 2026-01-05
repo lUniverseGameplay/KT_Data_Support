@@ -12,5 +12,19 @@
       "Range 8\u0022",
       "Piercing 1"
     ]
+  },
+  {
+    "id": 1,
+    "Team_name": "Deathwatch",
+    "Type": "Ranged",
+    "Name": "Plasma pistol (supercharge)",
+    "Attack": 4,
+    "Hit": 2,
+    "Normal_damage": 4,
+    "Critical_damage": 5,
+    "Rules": [
+      "Piercing 1",
+      "Hot"
+    ]
   }
 ]

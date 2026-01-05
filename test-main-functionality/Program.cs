@@ -202,6 +202,50 @@ namespace Programm
             return $"New weapon '{name}' succsesfully added";
         }
 
+        static string update_weapon(JsonSerializerOptions options, string path, List<Weapon> current_weapons_list, int update_id, string team_name, string type, string name, int a_stat, int hit_stat, int Nd_stat, int Cd_stat, List<string> rules)
+        {
+            if (team_name is null | team_name == "")
+            {
+                return "Empty team name";
+            }
+            if (name is null | name == "")
+            {
+                return "Empty weapon name";
+            }
+            if (type != "Ranged" && type != "Melee")
+            {
+                return "Wrong weapon type. Must be 'Ranged' or 'Melee'";
+            }
+            if (a_stat < 1)
+            {
+                return "Attack stat can't be less than 1";
+            }
+            if (hit_stat < 2 | hit_stat > 6)
+            {
+                return "Hit stat can't be less than 2+ and higher than 6+";
+            }
+            if (Nd_stat < 0)
+            {
+                return "Normal damage can't be less than 0";
+            }
+            if (Cd_stat < 0)
+            {
+                return "Critical damage can't be less than 0";
+            }
+            
+            Weapon weapon_to_update = new Weapon {id=update_id, Team_name=team_name, Name=name, Type=type, 
+            Attack=a_stat, Hit=hit_stat, Normal_damage=Nd_stat, Critical_damage=Cd_stat, Rules=rules};
+
+            current_weapons_list[update_id] = weapon_to_update; // заменяет профиль оружия с указанным id
+
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                JsonSerializer.SerializeAsync(fs, current_weapons_list, options);
+            }
+
+            return $"New weapon '{name}' succsesfully updated";
+        }
+
         static string add_team_rule_or_equip(string s, string name, string content)
         {
             if (s == "")
@@ -248,7 +292,7 @@ namespace Programm
 
                 //Console.WriteLine("Введите название оружия: ");
                 //string name = Console.ReadLine();
-                string name = "Plasma pistol (standard)";
+                string name = "Plasma pistol (supercharge)";
 
                 //Console.WriteLine("Введите показатель атаки оружия: ");
                 //int a = Int32.Parse(Console.ReadLine());
@@ -256,17 +300,17 @@ namespace Programm
 
                 //Console.WriteLine("Введите показатель попадания оружия: ");
                 //int hit = Int32.Parse(Console.ReadLine());
-                int hit = 3;
+                int hit = 2;
 
                 //Console.WriteLine("Введите показатель нормального урона оружия: ");
                 //int Norm_dam = Int32.Parse(Console.ReadLine());
-                int Norm_dam = 3;
+                int Norm_dam = 4;
 
                 //Console.WriteLine("Введите показатель критического урона оружия: ");
                 //int Crit_dam = Int32.Parse(Console.ReadLine());
                 int Crit_dam = 5;
 
-                Console.WriteLine("Введите количество специальных правил оружия: ");
+                /*Console.WriteLine("Введите количество специальных правил оружия: ");
                 List<string> w_rules = new List<string> {};
                 int n2 = Int32.Parse(Console.ReadLine());
                 for(int j=0; j < n2; j++)
@@ -299,7 +343,8 @@ namespace Programm
                             Console.WriteLine("Error! Unknown weapon rule.");
                         }
                     }
-                }
+                }*/
+                List<string> w_rules = new List<string> {"Piercing 1", "Hot"};
 
                 // Проверка существования оружия
                 bool weapon_already_added = false;
@@ -314,7 +359,7 @@ namespace Programm
                         {
                             weapon_already_updated = true;
                         }
-                        else { weapon_to_update_id = tw.id; }
+                        else { weapon_to_update_id = tw.id-1; }
                         break;
                     }
                 }
@@ -323,7 +368,7 @@ namespace Programm
                     if (weapon_already_updated) { Console.WriteLine("No changes, operation canceled."); }
                     else
                     {
-                        Console.WriteLine(); //update_weapon(options, path, weapon_to_update_id, team_name, type, name, a, hit, Norm_dam, Crit_dam, w_rules)
+                        Console.WriteLine(update_weapon(options, path, current_weapons_list, weapon_to_update_id, team_name, type, name, a, hit, Norm_dam, Crit_dam, w_rules)); //update_weapon(options, path, weapon_to_update_id, team_name, type, name, a, hit, Norm_dam, Crit_dam, w_rules)
                     }                    
                 }
                 else
