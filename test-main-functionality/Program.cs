@@ -10,23 +10,14 @@ namespace Programm
         public required string Content {get; set;}  // содержит описание действий стратагемы
     }
 
-    class Operative_selection_rules
-    {
-        public required int quantity {get; set;}  // указывает максимальное число оперативников в команде
-        public required string Rules {get; set;}  // содержит правила по выбору оперативников
-        public required List<string> operatives {get; set;} // содержит названия и вооружения моделей. Данные записываются в формате: "модель (вооружение)!модель2 (вооружение2)!..."
-        public required string Limits {get; set;}  // содержит ограничения по выбору определённых оперативников
-    }
-
     class Team //содержит данные о игровой команде
     {
         public required int id {get; set;} // Id команды
         public required string Name {get; set;}  // содержит название команды
-        public required string Rules {get; set;}  // содержит правила команды. Данные записываются в формате: "название-содержание!название2-содержание2!..."
-        public required Operative_selection_rules Operative_selection {get; set;} // содержит правила формирования отряда
+        public required string Rules {get; set;}  // содержит правила команды. Данные записываются в формате: "название!содержание?название2!содержание2?..."
         public required List<Stratagem> Ploys {get; set;} // содержит стратагемы
-        public required string Faction_equipment {get; set;} // содержит фракционное снаряжение. Данные записываются в формате: "название-содержание!название2-содержание2!..."
-        public required string Archetypes {get; set;} // содержит архетипы команд для выбора миссий. Данные записываются в формате: "архетип1!архетип2"
+        public required string Faction_equipment {get; set;} // содержит фракционное снаряжение. Данные записываются в формате: "название!содержание?название2!содержание2?..."
+        public required string Archetypes {get; set;} // содержит архетипы команд для выбора миссий. Данные записываются в формате: "архетип1 / архетип2"
         public required List<int> Datacards {get; set;} // содержит id моделей, относящихся к данной команде
     }
 
@@ -81,8 +72,8 @@ namespace Programm
                 return JsonSerializer.Deserialize<List<Weapon>>(fs);
             }
         }
-        
-        static string add_new_team(JsonSerializerOptions options, string name, string rules, Operative_selection_rules oper_selection, List<Stratagem> ploys, string faction_equip, string arhetypes, List<string> operatives_names)
+
+        static string add_new_team(JsonSerializerOptions options, string path, List<Team> current_kill_teams, string name, string rules, List<Stratagem> ploys, string faction_equip, string archetypes, List<int> operatives_id)
         {
             // проверки на пустые поля
             if (name is null | name == "")
@@ -93,9 +84,43 @@ namespace Programm
             {
                 return "Empty team rules. Min 1 required!";
             }
-            if (oper_selection.quantity < 1 | oper_selection.operatives.Count == 0)
+            if (ploys.Count == 0)
             {
-                return "Wrong operatives quantity. Min 1 required!";
+                return "Wrong ploys quantity. Min 1 stratagem required!";
+            }
+            if (faction_equip is null | faction_equip == "")
+            {
+                return "Wrong faction equipment. Min 1 faction equipment required!";
+            }
+            if (archetypes is null | archetypes == "" | archetypes.Split('/').Length != 2)
+            {
+                return "Wrong team archetypes. Must be 2 archetypes!";
+            }
+            if (operatives_id.Count == 0)
+            {
+                return "Wrong datacards quantity. Must be min 1 operative's datacard!";
+            }
+            
+            Team team_to_add = new Team {id=current_kill_teams.Count+1, Name=name, Rules=rules, Ploys=ploys, Faction_equipment=faction_equip, Archetypes=archetypes, Datacards=operatives_id};
+            current_kill_teams.Add(team_to_add);
+
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                JsonSerializer.SerializeAsync(fs, current_kill_teams, options);
+            }
+
+            return $"New team '{name}' succsesfully added";
+        }
+        static string update_team(JsonSerializerOptions options, string path, List<Team> current_kill_teams, int update_id, string name, string rules, List<Stratagem> ploys, string faction_equip, string archetypes, List<int> operatives_id)
+        {
+            // проверки на пустые поля
+            if (name is null | name == "")
+            {
+                return "Empty team name";
+            }
+            if (rules is null | rules == "")
+            {
+                return "Empty team rules. Min 1 required!";
             }
             if (ploys.Count == 0)
             {
@@ -105,20 +130,45 @@ namespace Programm
             {
                 return "Wrong faction equipment. Min 1 faction equipment required!";
             }
-            if (arhetypes is null | arhetypes == "" | arhetypes.Split('!').Length != 2)
+            if (archetypes is null | archetypes == "" | archetypes.Split('/').Length != 2)
             {
                 return "Wrong team archetypes. Must be 2 archetypes!";
             }
-            if (operatives_names.Count == 0)
+            if (operatives_id.Count == 0)
             {
                 return "Wrong datacards quantity. Must be min 1 operative's datacard!";
             }
-            /*using (FileStream fs = new FileStream("info/kill_teams.json", FileMode.Create))
+            
+            Team team_to_update = new Team {id=update_id+1, Name=name, Rules=rules, Ploys=ploys, Faction_equipment=faction_equip, Archetypes=archetypes, Datacards=operatives_id};
+            
+            current_kill_teams[update_id] = team_to_update; // заменяет профиль команды с указанным id
+
+            using (FileStream fs = new FileStream(path, FileMode.Create))
             {
-                Team new_team = new Team { Name = name, Rules = rules, Operative_selection = oper_selection, Ploys = ploys, Faction_equipment = faction_equip, Archetypes = arhetypes, Datacards = operatives_data};
-                JsonSerializer.SerializeAsync(fs, new_team, options);
-            }*/
-            return $"New team '{name}' succsesfully added";
+                JsonSerializer.SerializeAsync(fs, current_kill_teams, options);
+            }
+
+            return $"Team '{name}' succsesfully updated";
+        }
+        static string delete_team(JsonSerializerOptions options, string path, List<Operative> current_kill_teams, int to_delete_id)
+        {
+            if (to_delete_id < 0 | to_delete_id >= current_kill_teams.Count)
+            {
+                return "Check ID of team to delete!";
+            }
+
+            for (int i = to_delete_id+1; i < current_kill_teams.Count; i++)
+            {
+                current_kill_teams[i].id -= 1;
+            }
+            current_kill_teams.RemoveAt(to_delete_id);
+
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                JsonSerializer.SerializeAsync(fs, current_kill_teams, options);
+            }
+
+            return $"Team with ID {to_delete_id} succsesfully deleted";
         }
 
         static string add_new_operative(JsonSerializerOptions options, string path, List<Operative> current_operatives_list, string team_name, string name, int apl_stat, int m_stat, int sv_stat, int w_stat, List<int> weapons_id, string abilities, List<string> keys)
@@ -334,15 +384,6 @@ namespace Programm
             }
 
             return $"Weapon with ID {to_delete_id} succsesfully deleted";
-        }
-
-        static string add_team_rule_or_equip(string s, string name, string content)
-        {
-            if (s == "")
-            {
-                return name + "-" + content;
-            }
-            return s + "!" + name + "-" + content;
         }
         
         static void TRASH_weapons_adding(JsonSerializerOptions options, string path, List<Team> current_kill_teams, List<string> weapon_rules_names, List<Weapon> current_weapons_list)
@@ -588,6 +629,146 @@ namespace Programm
                 }
             }
         }
+        static void TRASH_team_adding(JsonSerializerOptions options, string path, List<Team> current_kill_teams, List<Operative> current_operatives_list)
+        {
+            Console.WriteLine("Введите количество команд для добавления:");
+            int n = Int32.Parse(Console.ReadLine());
+            
+            for(int i=0; i < n; i++)
+            {
+                Console.WriteLine("------------------------");
+
+                Console.WriteLine("Введите название команды: ");
+                string name = Console.ReadLine();
+                //string name = "Deathwatch";
+
+                string team_rules = "";
+                Console.WriteLine("Введите количество правил команды: ");
+                int temp_rules_num = Int32.Parse(Console.ReadLine());
+                Console.WriteLine("Если правило содержит несколько пунктов, то следует эти пункты следует записывать в скобках, разделяя их символом ';'. Пример: 'Once per turning point, when a friendly DEATHWATCH operative is performing the Shoot action, in the Select Weapon step, you can use this rule. If you do, select one of the following weapon rules for that operative’s ranged weapons to have until the end of the action. This rule cannot be used with explosive grenades (see universal equipment) or melta bombs: Blast 1;Devastating 1;Lethal 5+;Piercing 1;Rending;Saturate;Severe' ");
+                for (int j = 0; j < temp_rules_num; j++)
+                {
+                    if (j != 0) { team_rules += "?";}
+                    Console.WriteLine("Введите название правила: ");
+                    team_rules += Console.ReadLine() + "!";
+                    Console.WriteLine("Введите содержание правила: ");
+                    team_rules += Console.ReadLine();
+                }
+                //team_rules = "Special Issue Ammunition!Once per turning point, when a friendly DEATHWATCH operative is performing the Shoot action, in the Select Weapon step, you can use this rule. If you do, select one of the following weapon rules for that operative’s ranged weapons to have until the end of the action. This rule cannot be used with explosive grenades (see universal equipment) or melta bombs: Blast 1;Devastating 1;Lethal 5+;Piercing 1;Rending;Saturate;Severe";
+
+                List<Stratagem> team_stratagems = new List<Stratagem> {};
+                Console.WriteLine("Введите количество стратагем: ");
+                int temp_ploys_num = Int32.Parse(Console.ReadLine());
+                string ploy_type = "";
+                string ploy_name = "";
+                string ploy_cont = "";
+                for (int j = 0; j < temp_ploys_num; j++)
+                {
+                    Console.WriteLine("Введите тип стратагемы 'Strategy ploy'/'Firefight ploy': ");
+                    ploy_type = Console.ReadLine();
+                    if (ploy_type != "Strategy ploy" && ploy_type != "Firefight ploy")
+                    {
+                        Console.WriteLine("Wrong stratagem type. Continue...");
+                        continue;
+                    }
+                    Console.WriteLine("Введите название стратагемы: ");
+                    ploy_name = Console.ReadLine();
+                    Console.WriteLine("Введите содержание стратагемы: ");
+                    ploy_cont = Console.ReadLine();
+                    team_stratagems.Add(new Stratagem {Type = ploy_type, Name= ploy_name, Content = ploy_cont});
+                }
+                /*List<Stratagem> team_stratagems = new List<Stratagem> {new Stratagem {Type = "Strategy ploy", Name="MISSION TACTICS", Content="Select Conceal or Engage. Whenever a friendly DEATHWATCH operative is shooting against or fighting against an enemy operative that has that order, that friendly operative’s weapons have the Balanced weapon rule."},
+                new Stratagem {Type = "Firefight ploy", Name="SUFFER NOT THE ALIEN", Content="Use this firefight ploy after rolling your attack dice for a friendly DEATHWATCH operative, if it’s shooting against or fighting against an operative that doesn’t have the CHAOS or IMPERIUM keyword. You can re-roll any of your attack dice."}};
+                */
+
+                string team_equip = "";
+                Console.WriteLine("Введите количество фракционного снаряжения команды: ");
+                int temp_equip_num = Int32.Parse(Console.ReadLine());
+                Console.WriteLine("Если снаряжение содержит несколько пунктов, то следует эти пункты следует записывать в скобках, разделяя их символом ';'. Пример: 'Once per turning point, when a friendly DEATHWATCH operative is performing the Shoot action, in the Select Weapon step, you can use this rule. If you do, select one of the following weapon rules for that operative’s ranged weapons to have until the end of the action. This rule cannot be used with explosive grenades (see universal equipment) or melta bombs: Blast 1;Devastating 1;Lethal 5+;Piercing 1;Rending;Saturate;Severe' ");
+                for (int j = 0; j < temp_equip_num; j++)
+                {
+                    if (j != 0) { team_equip += "?";}
+                    Console.WriteLine("Введите название снаряжения: ");
+                    team_equip += Console.ReadLine() + "!";
+                    Console.WriteLine("Введите содержание снаряжения: ");
+                    team_equip += Console.ReadLine();
+                }
+                //team_equip = "DIGITAL WEAPONS!Once per turning point, when a friendly DEATHWATCH operative performs the Fight action, at the start of the Roll Attack Dice step, you can use this rule. If you do, inflict 1 damage on the enemy operative in that sequence.";
+
+                Console.WriteLine("Введите архетипы команды в формате 'архетип1 / архетип2': ");
+                string team_arch = Console.ReadLine();
+                //string team_arch = "Seek&Destroy / Security";
+
+                List<int> operatives_id_list = new List<int> {};
+                List<string> operatives_team_list = new List<string> {};
+                foreach (Operative t in current_operatives_list)
+                {
+                    operatives_id_list.Add(t.id);
+                    operatives_team_list.Add(t.Team_name);
+                }
+
+                List<int> team_opers = new List<int> {};
+                Console.WriteLine("Введите количество листов оперативников: ");
+                int temp_num_weapons = Int32.Parse(Console.ReadLine());
+                for (int j = 0; j < temp_num_weapons; j++)
+                {
+                    Console.WriteLine($"Введите ID оперативника №{j+1}: ");
+                    int op_id_to_add = Int32.Parse(Console.ReadLine());
+                    if (!operatives_id_list.Contains(op_id_to_add))
+                    {
+                        Console.WriteLine("Error! Operatives with this ID doesn't exist!");
+                    }
+                    else
+                    {
+                        if (name != operatives_team_list[op_id_to_add-1])
+                        {
+                            Console.WriteLine($"Error! Operative with this ID doesn't apply to team {name}!");
+                        }
+                        else
+                        {
+                            team_opers.Add(op_id_to_add);
+                        }
+                    }
+                }
+
+
+                /*Console.WriteLine($"Team name: {name}\nTeam rules: {team_rules}\nTeam equipment: {team_equip}\nTeam archetypes: {team_arch}");
+                foreach (Stratagem f in team_stratagems) {Console.WriteLine($"Stratagem type: {f.Type}, Name: {f.Name}\nDescprition: {f.Content}\n\n");}
+                foreach (int f in team_opers) {Console.WriteLine(f);}*/
+
+                
+                // Проверка существования командыs
+                bool team_already_added = false;
+                bool team_already_updated = false;
+                int team_to_update_id = 0;
+                foreach (Team tt in current_kill_teams)
+                {
+                    if (tt.Name == name)
+                    {
+                        team_already_added=true;
+                        if (tt.Rules == team_rules && tt.Ploys == team_stratagems && tt.Faction_equipment == team_equip && tt.Archetypes == team_arch && tt.Datacards == team_opers)
+                        {
+                            team_already_updated = true;
+                        }
+                        else { team_to_update_id = tt.id-1; }
+                        break;
+                    }
+                }
+
+                if (team_already_added) {
+                    if (team_already_updated) { Console.WriteLine("No changes, operation canceled."); }
+                    else
+                    {
+                        Console.WriteLine(update_team(options, path, current_kill_teams, team_to_update_id, name, team_rules, team_stratagems, team_equip, team_arch, team_opers)); 
+                    }                    
+                }
+                else
+                {
+                    string output = add_new_team(options, path, current_kill_teams,  name, team_rules, team_stratagems, team_equip, team_arch, team_opers);
+                    Console.WriteLine(output);
+                }
+            }
+        }
 
         static void Main() {
             JsonSerializerOptions options = new JsonSerializerOptions {
@@ -708,6 +889,8 @@ namespace Programm
             //Console.WriteLine(delete_weapon(options, dir_name + "weapons.json", current_weapons_list, 2));
             //TRASH_operatives_adding(options, dir_name + "operatives.json", current_teams_list, current_weapons_list, current_operatives_list);
             //Console.WriteLine(delete_operative(options, dir_name + "operatives.json", current_operatives_list, 1));
+            //TRASH_team_adding(options, dir_name + "kill_teams.json", current_teams_list, current_operatives_list);
+            Console.WriteLine(delete_team(options, dir_name + "kill_teams.json", current_operatives_list, 0));
         }
     }
 }
