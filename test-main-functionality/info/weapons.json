@@ -3,7 +3,7 @@
     "id": 1,
     "Team_name": "Deathwatch",
     "Type": "Ranged",
-    "Name": "Plasma pistol (standard)",
+    "Name": "Plasma pistol (standart)",
     "Attack": 4,
     "Hit": 3,
     "Normal_damage": 3,
@@ -14,17 +14,19 @@
     ]
   },
   {
-    "id": 1,
+    "id": 2,
     "Team_name": "Deathwatch",
     "Type": "Ranged",
     "Name": "Plasma pistol (supercharge)",
     "Attack": 4,
-    "Hit": 2,
+    "Hit": 3,
     "Normal_damage": 4,
     "Critical_damage": 5,
     "Rules": [
-      "Piercing 1",
-      "Hot"
+      "Range 8\u0022",
+      "Hot",
+      "Lethal 5\u002B",
+      "Piercing 1"
     ]
   }
 ]

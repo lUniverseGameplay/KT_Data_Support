@@ -113,7 +113,7 @@ namespace Programm
             {
                 return "Wrong datacards quantity. Must be min 1 operative's datacard!";
             }
-            /*using (FileStream fs = new FileStream("info/kill_teams.json", FileMode.OpenOrCreate))
+            /*using (FileStream fs = new FileStream("info/kill_teams.json", FileMode.Create))
             {
                 Team new_team = new Team { Name = name, Rules = rules, Operative_selection = oper_selection, Ploys = ploys, Faction_equipment = faction_equip, Archetypes = arhetypes, Datacards = operatives_data};
                 JsonSerializer.SerializeAsync(fs, new_team, options);
@@ -151,7 +151,7 @@ namespace Programm
             {
                 return "No keywords. Min 1 required";
             }
-            /*using (FileStream fs = new FileStream("info/kill_teams.json", FileMode.OpenOrCreate))
+            /*using (FileStream fs = new FileStream("info/kill_teams.json", FileMode.Create))
             {
                 Team new_team = new Team { Name = name, Rules = rules, Operative_selection = oper_selection, Ploys = ploys, Faction_equipment = faction_equip, Archetypes = arhetypes, Datacards = operatives_data};
                 JsonSerializer.SerializeAsync(fs, new_team, options);
@@ -194,7 +194,7 @@ namespace Programm
             Attack=a_stat, Hit=hit_stat, Normal_damage=Nd_stat, Critical_damage=Cd_stat, Rules=rules};
             current_weapons_list.Add(weapon_to_add);
 
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(path, FileMode.Create))
             {
                 JsonSerializer.SerializeAsync(fs, current_weapons_list, options);
             }
@@ -204,6 +204,10 @@ namespace Programm
 
         static string update_weapon(JsonSerializerOptions options, string path, List<Weapon> current_weapons_list, int update_id, string team_name, string type, string name, int a_stat, int hit_stat, int Nd_stat, int Cd_stat, List<string> rules)
         {
+            if (update_id < 0 | update_id > current_weapons_list.Count)
+            {
+                return "Check ID of weapon to update!";
+            }
             if (team_name is null | team_name == "")
             {
                 return "Empty team name";
@@ -232,18 +236,39 @@ namespace Programm
             {
                 return "Critical damage can't be less than 0";
             }
-            
-            Weapon weapon_to_update = new Weapon {id=update_id, Team_name=team_name, Name=name, Type=type, 
+
+            Weapon weapon_to_update = new Weapon {id=update_id+1, Team_name=team_name, Name=name, Type=type, 
             Attack=a_stat, Hit=hit_stat, Normal_damage=Nd_stat, Critical_damage=Cd_stat, Rules=rules};
 
             current_weapons_list[update_id] = weapon_to_update; // заменяет профиль оружия с указанным id
 
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(path, FileMode.Create))
             {
                 JsonSerializer.SerializeAsync(fs, current_weapons_list, options);
             }
 
             return $"New weapon '{name}' succsesfully updated";
+        }
+
+        static string delete_weapon(JsonSerializerOptions options, string path, List<Weapon> current_weapons_list, int to_delete_id)
+        {
+            if (to_delete_id < 0 | to_delete_id >= current_weapons_list.Count)
+            {
+                return "Check ID of weapon to delete!";
+            }
+
+            for (int i = to_delete_id+1; i < current_weapons_list.Count; i++)
+            {
+                current_weapons_list[i].id -= 1;
+            }
+            current_weapons_list.RemoveAt(to_delete_id);
+
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                JsonSerializer.SerializeAsync(fs, current_weapons_list, options);
+            }
+
+            return $"Weapon with ID {to_delete_id} succsesfully deleted";
         }
 
         static string add_team_rule_or_equip(string s, string name, string content)
@@ -253,13 +278,6 @@ namespace Programm
                 return name + "-" + content;
             }
             return s + "!" + name + "-" + content;
-        }
-
-        static void TRASH_models_adding()
-        {
-            Console.WriteLine("Введите количество листов оперативников:");
-            int n = int.Parse(Console.ReadLine());
-
         }
         
         static void TRASH_weapons_adding(JsonSerializerOptions options, string path, List<Team> current_kill_teams, List<string> weapon_rules_names, List<Weapon> current_weapons_list)
@@ -284,7 +302,7 @@ namespace Programm
                         break;
                     }
                 }
-                if (!existence) { Console.WriteLine("Warning! Written team doesn't found"); }
+                //if (!existence) { Console.WriteLine("Warning! Written team doesn't found"); }
 
                 //Console.WriteLine("Выберите тип оружия из предложенных и напишите его: 'Ranged' or 'Melee'. Ваш выбор: ");
                 //string type = Console.ReadLine();
@@ -292,7 +310,7 @@ namespace Programm
 
                 //Console.WriteLine("Введите название оружия: ");
                 //string name = Console.ReadLine();
-                string name = "Plasma pistol (supercharge)";
+                string name = "----";
 
                 //Console.WriteLine("Введите показатель атаки оружия: ");
                 //int a = Int32.Parse(Console.ReadLine());
@@ -300,7 +318,7 @@ namespace Programm
 
                 //Console.WriteLine("Введите показатель попадания оружия: ");
                 //int hit = Int32.Parse(Console.ReadLine());
-                int hit = 2;
+                int hit = 3;
 
                 //Console.WriteLine("Введите показатель нормального урона оружия: ");
                 //int Norm_dam = Int32.Parse(Console.ReadLine());
@@ -344,7 +362,7 @@ namespace Programm
                         }
                     }
                 }*/
-                List<string> w_rules = new List<string> {"Piercing 1", "Hot"};
+                List<string> w_rules = new List<string> {};
 
                 // Проверка существования оружия
                 bool weapon_already_added = false;
@@ -500,7 +518,8 @@ namespace Programm
                 }
             }
 
-            TRASH_weapons_adding(options, dir_name + "weapons.json", current_teams_list, weapon_rules_names, current_weapons_list);
+            //TRASH_weapons_adding(options, dir_name + "weapons.json", current_teams_list, weapon_rules_names, current_weapons_list);
+            Console.WriteLine(delete_weapon(options, dir_name + "weapons.json", current_weapons_list, 2));
         }
     }
 }
