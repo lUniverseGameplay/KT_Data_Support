@@ -121,7 +121,7 @@ namespace Programm
             return $"New team '{name}' succsesfully added";
         }
 
-        static string add_new_operative(JsonSerializerOptions options, string team_name, string name, int apl_stat, int m_stat, int sv_stat, int w_stat, List<string> weapons_names, string abilities, List<string> keys)
+        static string add_new_operative(JsonSerializerOptions options, string path, List<Operative> current_operatives_list, string team_name, string name, int apl_stat, int m_stat, int sv_stat, int w_stat, List<int> weapons_id, string abilities, List<string> keys)
         {
             if (team_name is null | team_name == "")
             {
@@ -151,12 +151,79 @@ namespace Programm
             {
                 return "No keywords. Min 1 required";
             }
-            /*using (FileStream fs = new FileStream("info/kill_teams.json", FileMode.Create))
+
+            Operative operative_to_add = new Operative {id=current_operatives_list.Count+1, Team_name=team_name, Name=name, APL=apl_stat, Move=m_stat, Save=sv_stat, Wounds=w_stat, Weapons_id=weapons_id, Abilities=abilities, Keywords=keys};
+            current_operatives_list.Add(operative_to_add);
+
+            using (FileStream fs = new FileStream(path, FileMode.Create))
             {
-                Team new_team = new Team { Name = name, Rules = rules, Operative_selection = oper_selection, Ploys = ploys, Faction_equipment = faction_equip, Archetypes = arhetypes, Datacards = operatives_data};
-                JsonSerializer.SerializeAsync(fs, new_team, options);
-            }*/
+                JsonSerializer.SerializeAsync(fs, current_operatives_list, options);
+            }
+
             return $"New operative '{name}' succsesfully added";
+        }
+        static string update_operative(JsonSerializerOptions options, string path, List<Operative> current_operatives_list, int update_id, string team_name, string name, int apl_stat, int m_stat, int sv_stat, int w_stat, List<int> weapons_id, string abilities, List<string> keys)
+        {
+            if (team_name is null | team_name == "")
+            {
+                return "Empty team name";
+            }
+            if (name is null | name == "")
+            {
+                return "Empty operative's name";
+            }
+            if (apl_stat < 1)
+            {
+                return "APL stat can't be less than 1";
+            }
+            if (m_stat < 1)
+            {
+                return "Move stat can't be less than 1";
+            }
+            if (sv_stat < 2 | sv_stat > 7)
+            {
+                return "Save stat can't be less than 2+ or higher than 7+";
+            }
+            if (w_stat < 1)
+            {
+                return "Wounds stat can't be less than 1";
+            }
+            if (keys.Count == 0)
+            {
+                return "No keywords. Min 1 required";
+            }
+
+            Operative operative_to_update = new Operative {id=update_id+1, Team_name=team_name, Name=name, APL=apl_stat, Move=m_stat, Save=sv_stat,
+            Wounds=w_stat, Weapons_id=weapons_id, Abilities=abilities, Keywords=keys};
+
+            current_operatives_list[update_id] = operative_to_update; // заменяет профиль оперативника с указанным id
+
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                JsonSerializer.SerializeAsync(fs, current_operatives_list, options);
+            }
+
+            return $"Operative '{name}' succsesfully updated";
+        }
+        static string delete_operative(JsonSerializerOptions options, string path, List<Operative> current_operatives_list, int to_delete_id)
+        {
+            if (to_delete_id < 0 | to_delete_id >= current_operatives_list.Count)
+            {
+                return "Check ID of operative to delete!";
+            }
+
+            for (int i = to_delete_id+1; i < current_operatives_list.Count; i++)
+            {
+                current_operatives_list[i].id -= 1;
+            }
+            current_operatives_list.RemoveAt(to_delete_id);
+
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                JsonSerializer.SerializeAsync(fs, current_operatives_list, options);
+            }
+
+            return $"Operative with ID {to_delete_id} succsesfully deleted";
         }
 
         static string add_new_weapon(JsonSerializerOptions options, string path, List<Weapon> current_weapons_list, string team_name, string type, string name, int a_stat, int hit_stat, int Nd_stat, int Cd_stat, List<string> rules)
@@ -201,7 +268,6 @@ namespace Programm
 
             return $"New weapon '{name}' succsesfully added";
         }
-
         static string update_weapon(JsonSerializerOptions options, string path, List<Weapon> current_weapons_list, int update_id, string team_name, string type, string name, int a_stat, int hit_stat, int Nd_stat, int Cd_stat, List<string> rules)
         {
             if (update_id < 0 | update_id > current_weapons_list.Count)
@@ -247,9 +313,8 @@ namespace Programm
                 JsonSerializer.SerializeAsync(fs, current_weapons_list, options);
             }
 
-            return $"New weapon '{name}' succsesfully updated";
+            return $"Weapon '{name}' succsesfully updated";
         }
-
         static string delete_weapon(JsonSerializerOptions options, string path, List<Weapon> current_weapons_list, int to_delete_id)
         {
             if (to_delete_id < 0 | to_delete_id >= current_weapons_list.Count)
@@ -282,54 +347,52 @@ namespace Programm
         
         static void TRASH_weapons_adding(JsonSerializerOptions options, string path, List<Team> current_kill_teams, List<string> weapon_rules_names, List<Weapon> current_weapons_list)
         {
-            //Console.WriteLine("Введите количество оружия для добавления:");
-            //int n = int.Parse(Console.ReadLine());
-            int n = 1;
+            Console.WriteLine("Введите количество оружия для добавления:");
+            int n = int.Parse(Console.ReadLine());
             
             for(int i=0; i < n; i++)
             {
                 Console.WriteLine("------------------------");
 
-                //Console.WriteLine("Напишите название команды к которой относится это оружие: ");
-                //string team_name = Console.ReadLine();
-                string team_name = "Deathwatch";
-                bool existence = false; // Для проверки существования указанной команды
+                Console.WriteLine("Напишите название команды к которой относится это оружие: ");
+                string team_name = Console.ReadLine();
+                bool team_existence = false; // Для проверки существования указанной команды
                 foreach (Team t in current_kill_teams)
                 {
                     if (t.Name == team_name)
                     {
-                        existence = true;
+                        team_existence = true;
                         break;
                     }
                 }
-                //if (!existence) { Console.WriteLine("Warning! Written team doesn't found"); }
+                if (!team_existence) { Console.WriteLine("Warning! Written team doesn't found"); }
+                //string team_name = "Deathwatch";
 
-                //Console.WriteLine("Выберите тип оружия из предложенных и напишите его: 'Ranged' or 'Melee'. Ваш выбор: ");
-                //string type = Console.ReadLine();
-                string type = "Ranged";
+                Console.WriteLine("Выберите тип оружия из предложенных и напишите его: 'Ranged' or 'Melee'. Ваш выбор: ");
+                string type = Console.ReadLine();
+                //string type = "Ranged";
 
-                //Console.WriteLine("Введите название оружия: ");
-                //string name = Console.ReadLine();
-                string name = "----";
+                Console.WriteLine("Введите название оружия: ");
+                string name = Console.ReadLine();
 
-                //Console.WriteLine("Введите показатель атаки оружия: ");
-                //int a = Int32.Parse(Console.ReadLine());
-                int a = 4;
+                Console.WriteLine("Введите показатель атаки оружия: ");
+                int a = Int32.Parse(Console.ReadLine());
+                //int a = 4;
 
-                //Console.WriteLine("Введите показатель попадания оружия: ");
-                //int hit = Int32.Parse(Console.ReadLine());
-                int hit = 3;
+                Console.WriteLine("Введите показатель попадания оружия: ");
+                int hit = Int32.Parse(Console.ReadLine());
+                //int hit = 3;
 
-                //Console.WriteLine("Введите показатель нормального урона оружия: ");
-                //int Norm_dam = Int32.Parse(Console.ReadLine());
-                int Norm_dam = 4;
+                Console.WriteLine("Введите показатель нормального урона оружия: ");
+                int Norm_dam = Int32.Parse(Console.ReadLine());
+                //int Norm_dam = 3;
 
-                //Console.WriteLine("Введите показатель критического урона оружия: ");
-                //int Crit_dam = Int32.Parse(Console.ReadLine());
-                int Crit_dam = 5;
+                Console.WriteLine("Введите показатель критического урона оружия: ");
+                int Crit_dam = Int32.Parse(Console.ReadLine());
+                //int Crit_dam = 4;
 
-                /*Console.WriteLine("Введите количество специальных правил оружия: ");
                 List<string> w_rules = new List<string> {};
+                Console.WriteLine("Введите количество специальных правил оружия: ");
                 int n2 = Int32.Parse(Console.ReadLine());
                 for(int j=0; j < n2; j++)
                 {
@@ -361,8 +424,7 @@ namespace Programm
                             Console.WriteLine("Error! Unknown weapon rule.");
                         }
                     }
-                }*/
-                List<string> w_rules = new List<string> {};
+                }
 
                 // Проверка существования оружия
                 bool weapon_already_added = false;
@@ -391,13 +453,137 @@ namespace Programm
                 }
                 else
                 {
-                    foreach (string s in w_rules) {Console.WriteLine(s);}
                     string output = add_new_weapon(options, path, current_weapons_list, team_name, type, name, a, hit, Norm_dam, Crit_dam, w_rules);
-                    if (output.Contains(" succsesfully added"))
+                    Console.WriteLine(output);
+                }
+            }
+        }
+        static void TRASH_operatives_adding(JsonSerializerOptions options, string path, List<Team> current_kill_teams, List<Weapon> current_weapons_list, List<Operative> current_operatives_list)
+        {
+            Console.WriteLine("Введите количество оперативников для добавления:");
+            int n = int.Parse(Console.ReadLine());
+            
+            for(int i=0; i < n; i++)
+            {
+                Console.WriteLine("------------------------");
+
+                Console.WriteLine("Напишите название команды к которой относится этот оперативник: ");
+                string team_name = Console.ReadLine();
+                bool team_existence = false; // Для проверки существования указанной команды
+                foreach (Team t in current_kill_teams)
+                {
+                    if (t.Name == team_name)
                     {
-                        current_weapons_list.Add(new Weapon {id=current_weapons_list.Count+1, Team_name=team_name, Name=name, Type=type, 
-                        Attack=a, Hit=hit, Normal_damage=Norm_dam, Critical_damage=Crit_dam, Rules=w_rules});
+                        team_existence = true;
+                        break;
                     }
+                }
+                if (!team_existence) { Console.WriteLine("Warning! Written team doesn't found"); }
+                //string team_name = "Deathwatch";
+
+                Console.WriteLine("Введите название оперативника: ");
+                string name = Console.ReadLine();
+                //string name = "Deathwatch Watch Sergeant";
+
+                Console.WriteLine("Введите показатель APL оперативника: ");
+                int apl = Int32.Parse(Console.ReadLine());
+                //int apl = 3;
+
+                Console.WriteLine("Введите показатель Move оперативника: ");
+                int move = Int32.Parse(Console.ReadLine());
+                //int move = 6;
+
+                Console.WriteLine("Введите показатель Save оперативника: ");
+                int save = Int32.Parse(Console.ReadLine());
+                //int save = 3;
+
+                Console.WriteLine("Введите показатель Wounds оперативника: ");
+                int wounds = Int32.Parse(Console.ReadLine());
+                //int wounds = 15;
+
+                List<int> weapons_id_list = new List<int> {};
+                List<string> weapons_team_list = new List<string> {};
+                foreach (Weapon t in current_weapons_list)
+                {
+                    weapons_id_list.Add(t.id);
+                    weapons_team_list.Add(t.Team_name);
+                }
+
+                List<int> oper_weapons = new List<int> {};
+                Console.WriteLine("Введите количество оружия у оперативника: ");
+                int temp_num_weapons = Int32.Parse(Console.ReadLine());
+                for (int j = 0; j < temp_num_weapons; j++)
+                {
+                    Console.WriteLine($"Введите ID оружия №{j+1} оперативника: ");
+                    int w_id_to_add = Int32.Parse(Console.ReadLine());
+                    if (!weapons_id_list.Contains(w_id_to_add))
+                    {
+                        Console.WriteLine("Error! Weapon with this ID doesn't exist!");
+                    }
+                    else
+                    {
+                        if (team_name != weapons_team_list[w_id_to_add-1])
+                        {
+                            Console.WriteLine($"Error! Weapon with this ID doesn't apply to team {team_name}!");
+                        }
+                        else
+                        {
+                            oper_weapons.Add(w_id_to_add);
+                        }
+                    }
+                }
+
+
+                string oper_abilities = "";
+                Console.WriteLine("Введите количество спец. правил оперативника: ");
+                int temp_num_spec_rules = Int32.Parse(Console.ReadLine());
+                Console.WriteLine("Если правило содержит несколько пунктов, то следует эти пункты следует записывать в скобках, разделяя их символом ';'. Пример: 'Strategic Command: You can do each of the following once per battle if this operative is in the killzone: (Use a DEATHWATCH strategy ploy for 0CP; Use a DEATHWATCH firefight ploy for 0CP).' ");
+                for (int j = 0; j < temp_num_spec_rules; j++)
+                {
+                    if (j != 0) { oper_abilities += "\n";}
+                    Console.WriteLine("Введите правило: ");
+                    oper_abilities += Console.ReadLine();
+                }
+                
+                Console.WriteLine("Введите количество кейвордов оперативника: ");
+                int temp_num_keywords = Int32.Parse(Console.ReadLine());
+                List<string> oper_keywords = new List<string> {};
+                Console.WriteLine("Введите кейворды: ");
+                for (int j = 0; j < temp_num_keywords; j++)
+                {                    
+                    oper_keywords.Add(Console.ReadLine());
+                }
+                //List<string> oper_keywords = new List<string> {"DEATHWATCH", "IMPERIUM", "ADEPTUS ASTARTES", "LEADER", "WATCH SERGEANT"};
+
+                
+                // Проверка существования оперативника
+                bool operative_already_added = false;
+                bool operative_already_updated = false;
+                int operative_to_update_id = 0;
+                foreach (Operative to in current_operatives_list)
+                {
+                    if (to.Name == name && to.Team_name == team_name)
+                    {
+                        operative_already_added=true;
+                        if (to.APL == apl && to.Move == move && to.Save == save && to.Wounds == wounds && to.Weapons_id == oper_weapons && to.Abilities == oper_abilities && to.Keywords == oper_keywords)
+                        {
+                            operative_already_updated = true;
+                        }
+                        else { operative_to_update_id = to.id-1; }
+                        break;
+                    }
+                }
+
+                if (operative_already_added) {
+                    if (operative_already_updated) { Console.WriteLine("No changes, operation canceled."); }
+                    else
+                    {
+                        Console.WriteLine(update_operative(options, path, current_operatives_list, operative_to_update_id, team_name, name, apl, move, save, wounds, oper_weapons, oper_abilities, oper_keywords)); 
+                    }                    
+                }
+                else
+                {
+                    string output = add_new_operative(options, path, current_operatives_list, team_name, name, apl, move, save, wounds, oper_weapons, oper_abilities, oper_keywords);
                     Console.WriteLine(output);
                 }
             }
@@ -519,7 +705,9 @@ namespace Programm
             }
 
             //TRASH_weapons_adding(options, dir_name + "weapons.json", current_teams_list, weapon_rules_names, current_weapons_list);
-            Console.WriteLine(delete_weapon(options, dir_name + "weapons.json", current_weapons_list, 2));
+            //Console.WriteLine(delete_weapon(options, dir_name + "weapons.json", current_weapons_list, 2));
+            //TRASH_operatives_adding(options, dir_name + "operatives.json", current_teams_list, current_weapons_list, current_operatives_list);
+            //Console.WriteLine(delete_operative(options, dir_name + "operatives.json", current_operatives_list, 1));
         }
     }
 }

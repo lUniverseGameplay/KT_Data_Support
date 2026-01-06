@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": 1,
+    "Team_name": "Deathwatch",
+    "Name": "Deathwatch Watch Sergeant",
+    "APL": 3,
+    "Move": 6,
+    "Save": 3,
+    "Wounds": 15,
+    "Weapons_id": [
+      1,
+      2
+    ],
+    "Abilities": "Adaptable Armoury: You can select one additional equipment option.\nStrategic Command: You can do each of the following once per battle if this operative is in the killzone: (Use a DEATHWATCH strategy ploy for 0CP; Use a DEATHWATCH firefight ploy for 0CP.)",
+    "Keywords": [
+      "DEATHWATCH",
+      "IMPERIUM",
+      "ADEPTUS ASTARTES",
+      "LEADER",
+      "WATCH SERGEANT"
+    ]
+  }
+]
