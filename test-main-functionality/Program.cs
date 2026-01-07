@@ -150,7 +150,7 @@ namespace Programm
 
             return $"Team '{name}' succsesfully updated";
         }
-        static string delete_team(JsonSerializerOptions options, string path, List<Operative> current_kill_teams, int to_delete_id)
+        static string delete_team(JsonSerializerOptions options, string path, List<Team> current_kill_teams, int to_delete_id)
         {
             if (to_delete_id < 0 | to_delete_id >= current_kill_teams.Count)
             {
@@ -890,7 +890,7 @@ namespace Programm
             //TRASH_operatives_adding(options, dir_name + "operatives.json", current_teams_list, current_weapons_list, current_operatives_list);
             //Console.WriteLine(delete_operative(options, dir_name + "operatives.json", current_operatives_list, 1));
             //TRASH_team_adding(options, dir_name + "kill_teams.json", current_teams_list, current_operatives_list);
-            //Console.WriteLine(delete_team(options, dir_name + "kill_teams.json", current_operatives_list, 0));
+            //Console.WriteLine(delete_team(options, dir_name + "kill_teams.json", current_teams_list, 0));
         }
     }
 }

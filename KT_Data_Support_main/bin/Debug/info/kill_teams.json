@@ -15,5 +15,27 @@
     "Datacards": [
       1
     ]
+  },
+  {
+    "id": 2,
+    "Name": "Kasrkin",
+    "Rules": "Skill at Arms!STRATEGIC GAMBIT. Select a SKILL AT ARMS for friendly KASRKIN operatives to have until the Ready step of the next Strategy phase.",
+    "Ploys": [
+      {
+        "Type": "Strategy ploy",
+        "Name": "ELIMINATION PATTERN",
+        "Content": "Whenever a friendly KASRKIN operative is shooting with a hot-shot weapon against an operative that\u2019s not in cover or is being scanned (see RECON-TROOPER), that weapon has the Piercing Crits 1 weapon rule, or Piercing 1 instead if it\u2019s a hot-shot volley gun."
+      },
+      {
+        "Type": "Firefight ploy",
+        "Name": "SEIZE THE INITIATIVE",
+        "Content": "Use this firefight ploy at the start of the Firefight phase. One friendly KASRKIN operative can immediately perform a 1AP action for free, but it cannot move during that action. You cannot use this ploy if you\u2019re the player with initiative."
+      }
+    ],
+    "Faction_equipment": "FOREGRIP!Whenever a friendly KASRKIN operative is shooting an operative within 3\u0022 of it, ranged weapons on its datacard (excluding weapons that include \u2018pistol\u2019 in their name, e.g. hot-shot laspistol, all profiles of a plasma pistol, etc.) have the Accurate 1 weapon rule.",
+    "Archetypes": "Seek\u0026Destroy / Security",
+    "Datacards": [
+      1
+    ]
   }
 ]
