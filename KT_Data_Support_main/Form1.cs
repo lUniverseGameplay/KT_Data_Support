@@ -23,6 +23,7 @@ namespace KT_Data_Support_main
         };
         static string dir_name = "./info/";
         List<string> weapon_rules = new List<string> { };
+        List<string> weapon_rules_names = new List<string> { };
         List<string> temp_operative_abilities = new List<string> { };
         List<string> temp_team_rules = new List<string> { };
         List<string> temp_team_equips = new List<string> { };
@@ -405,6 +406,10 @@ namespace KT_Data_Support_main
         static List<Stratagem> temp_team_stratagem_to_add = new List<Stratagem> { };
         static string temp_team_equip_to_add = "";
         static List<int> temp_team_oper_id_to_add = new List<int> { };
+        List<string> temp_weapon_rule_to_add = new List<string> { };
+        List<int> temp_operative_weapon_id_to_add = new List<int> { };
+        static string temp_operative_abilities_to_add = "";
+        List<string> temp_operative_keywords_to_add = new List<string> { };
 
 
         public Form1()
@@ -477,6 +482,26 @@ namespace KT_Data_Support_main
             {
                 listBox_Weapons.Items.Insert(cw.id - 1, cw.id.ToString() + ": " + cw.Name);
             }
+            foreach (string s in weapon_rules)
+            {
+                string s_name = s.Split('\n')[0].Trim(); // Выделение имени из всего правила
+                if (s_name.EndsWith(" x+"))
+                {
+                    weapon_rules_names.Add(s_name.Substring(0, s_name.Length - 3));
+                }
+                else
+                {
+                    if (s_name.EndsWith(" x"))
+                    {
+                        weapon_rules_names.Add(s_name.Substring(0, s_name.Length - 2));
+                    }
+                    else
+                    {
+                        weapon_rules_names.Add(s_name);
+                    }
+                }
+            }
+            foreach (string s in weapon_rules_names) { Console.WriteLine(s); }
         }
 
         private void listBox_Weapons_SelectedIndexChanged(object sender, EventArgs e)
@@ -665,8 +690,8 @@ namespace KT_Data_Support_main
             if (comboBox1.SelectedItem.ToString() == "delete")
             {
                 operation_delete_box.Visible = true;
-                //operation_add_weapon_box.Visible = false;
-                //operation_add_operative_box.Visible = false;
+                operation_add_weapon_box.Visible = false;
+                operation_add_operative_box.Visible = false;
                 operation_add_team_box.Visible = false;
                 selected_operation_type = "delete";
             }
@@ -678,22 +703,22 @@ namespace KT_Data_Support_main
                     if (selected_operation_object == "Team")
                     {
                         operation_delete_box.Visible = false;
-                        //operation_add_weapon_box.Visible = false;
-                        //operation_add_operative_box.Visible = false;
+                        operation_add_weapon_box.Visible = false;
+                        operation_add_operative_box.Visible = false;
                         operation_add_team_box.Visible = true;
                     }
                     if (selected_operation_object == "Operative")
                     {
                         operation_delete_box.Visible = false;
-                        //operation_add_weapon_box.Visible = false;
-                        //operation_add_operative_box.Visible = true;
+                        operation_add_weapon_box.Visible = false;
+                        operation_add_operative_box.Visible = true;
                         operation_add_team_box.Visible = false;
                     }
                     if (selected_operation_object == "Weapon")
                     {
                         operation_delete_box.Visible = false;
-                        //operation_add_weapon_box.Visible = true;
-                        //operation_add_operative_box.Visible = false;
+                        operation_add_weapon_box.Visible = true;
+                        operation_add_operative_box.Visible = false;
                         operation_add_team_box.Visible = false;
                     }
                 }
@@ -706,8 +731,8 @@ namespace KT_Data_Support_main
             if (selected_operation_type == "add")
             {
                 operation_delete_box.Visible = false;
-                //operation_add_weapon_box.Visible = false;
-                //operation_add_operative_box.Visible = false;
+                operation_add_weapon_box.Visible = false;
+                operation_add_operative_box.Visible = false;
                 operation_add_team_box.Visible = true;
             }
         }
@@ -717,8 +742,8 @@ namespace KT_Data_Support_main
             if (selected_operation_type == "add")
             {
                 operation_delete_box.Visible = false;
-                //operation_add_weapon_box.Visible = false;
-                //operation_add_operative_box.Visible = true;
+                operation_add_weapon_box.Visible = false;
+                operation_add_operative_box.Visible = true;
                 operation_add_team_box.Visible = false;
             }
         }
@@ -728,8 +753,8 @@ namespace KT_Data_Support_main
             if (selected_operation_type == "add")
             {
                 operation_delete_box.Visible = false;
-                //operation_add_weapon_box.Visible = true;
-                //operation_add_operative_box.Visible = false;
+                operation_add_weapon_box.Visible = true;
+                operation_add_operative_box.Visible = false;
                 operation_add_team_box.Visible = false;
             }
         }
@@ -857,9 +882,142 @@ namespace KT_Data_Support_main
                         }
                         if (selected_operation_object == "Operative")
                         {
+                            string team_name = add_operative_operation_field_team_name.Text;
+                            bool team_existence = false; // Для проверки существования указанной команды
+                            foreach (Team t in current_teams_list)
+                            {
+                                if (t.Name == team_name)
+                                {
+                                    team_existence = true;
+                                    break;
+                                }
+                            }
+                            if (!team_existence) { add_weapon_operation_output_label.Text = "Warning! Written team doesn't found"; }
+
+                            string name = add_operative_operation_field_name.Text;
+                            int apl = Int32.Parse(add_operative_operation_field_apl.Text);
+                            int move = Int32.Parse(add_operative_operation_field_move.Text);
+                            int save = Int32.Parse(add_operative_operation_field_save.Text);
+                            int wounds = Int32.Parse(add_operative_operation_field_wounds.Text);
+
+                            List<int> oper_weapons = temp_operative_weapon_id_to_add;
+                            temp_operative_weapon_id_to_add = new List<int> { };
+
+                            string oper_abilities = temp_operative_abilities_to_add;
+                            temp_operative_abilities_to_add = "";
+
+                            List<string> oper_keywords = temp_operative_keywords_to_add;
+                            temp_operative_keywords_to_add = new List<string> { };
+
+                            // Проверка существования оперативника
+                            bool operative_already_added = false;
+                            bool operative_already_updated = false;
+                            int operative_to_update_id = 0;
+                            foreach (Operative to in current_operatives_list)
+                            {
+                                if (to.Name == name && to.Team_name == team_name)
+                                {
+                                    operative_already_added = true;
+                                    if (to.APL == apl && to.Move == move && to.Save == save && to.Wounds == wounds && to.Weapons_id == oper_weapons && to.Abilities == oper_abilities && to.Keywords == oper_keywords)
+                                    {
+                                        operative_already_updated = true;
+                                    }
+                                    else { operative_to_update_id = to.id - 1; }
+                                    break;
+                                }
+                            }
+
+                            if (operative_already_added)
+                            {
+                                if (operative_already_updated) { Console.WriteLine("No changes, operation canceled."); }
+                                else
+                                {
+                                    result = update_operative(options, dir_name + "operatives.json", current_operatives_list, operative_to_update_id, team_name, name, apl, move, save, wounds, oper_weapons, oper_abilities, oper_keywords);
+                                }
+                            }
+                            else
+                            {
+                                result = add_new_operative(options, dir_name + "operatives.json", current_operatives_list, team_name, name, apl, move, save, wounds, oper_weapons, oper_abilities, oper_keywords);
+                            }
+
+                            listBox_Operatives.Items.Clear();
+                            foreach (Operative co in current_operatives_list)
+                            {
+                                listBox_Operatives.Items.Insert(co.id - 1, co.id.ToString() + ": " + co.Name);
+                            }
                         }
                         if (selected_operation_object == "Weapon")
                         {
+                            string team_name = add_weapon_operation_field_team_name.Text;
+                            bool team_existence = false; // Для проверки существования указанной команды
+                            foreach (Team t in current_teams_list)
+                            {
+                                if (t.Name == team_name)
+                                {
+                                    team_existence = true;
+                                    break;
+                                }
+                            }
+                            if (!team_existence) { add_weapon_operation_output_label.Text = "Warning! Written team doesn't found"; }
+
+                            string type = "";
+                            if (add_weapon_operation_box_type.SelectedItem != null)
+                            {
+                                if (add_weapon_operation_box_type.SelectedItem.ToString() == "Ranged")
+                                {
+                                    type = "Ranged";
+                                }
+                                if (add_weapon_operation_box_type.SelectedItem.ToString() == "Melee")
+                                {
+                                    type = "Melee";
+                                }
+                            }
+
+                            string name = add_weapon_operation_field_name.Text;
+                            int a = Int32.Parse(add_weapon_operation_field_attack.Text);
+                            int hit = Int32.Parse(add_weapon_operation_field_hit.Text);
+                            int Norm_dam = Int32.Parse(add_weapon_operation_field_nd.Text);
+                            int Crit_dam = Int32.Parse(add_weapon_operation_field_cd.Text);
+
+                            List<string> w_rules = temp_weapon_rule_to_add;
+                            temp_weapon_rule_to_add = new List<string> { };
+
+                            // Проверка существования оружия
+                            bool weapon_already_added = false;
+                            bool weapon_already_updated = false;
+                            int weapon_to_update_id = 0;
+                            foreach (Weapon tw in current_weapons_list)
+                            {
+                                if (tw.Name == name && tw.Team_name == team_name)
+                                {
+                                    weapon_already_added = true;
+                                    if (tw.Type == type && tw.Attack == a && tw.Hit == hit && tw.Normal_damage == Norm_dam && tw.Critical_damage == Crit_dam && tw.Rules == w_rules)
+                                    {
+                                        weapon_already_updated = true;
+                                    }
+                                    else { weapon_to_update_id = tw.id - 1; }
+                                    break;
+                                }
+                            }
+
+                            if (weapon_already_added)
+                            {
+                                if (weapon_already_updated) { Console.WriteLine("No changes, operation canceled."); }
+                                else
+                                {
+                                    result = update_weapon(options, dir_name + "weapons.json", current_weapons_list, weapon_to_update_id, team_name, type, name, a, hit, Norm_dam, Crit_dam, w_rules); //update_weapon(options, path, weapon_to_update_id, team_name, type, name, a, hit, Norm_dam, Crit_dam, w_rules)
+                                }
+                            }
+                            else
+                            {
+                                result = add_new_weapon(options, dir_name + "weapons.json", current_weapons_list, team_name, type, name, a, hit, Norm_dam, Crit_dam, w_rules);
+                            }
+
+                            listBox_Weapons.Items.Clear();
+                            foreach (Weapon cw in current_weapons_list)
+                            {
+                                listBox_Weapons.Items.Insert(cw.id - 1, cw.id.ToString() + ": " + cw.Name);
+                            }
                         }
                         Output_result.Text = result;
                     }
@@ -971,6 +1129,104 @@ namespace KT_Data_Support_main
             else
             {
                 add_team_operation_output_label.Text = "Error to adding new operative. Empty field.";
+            }
+        }
+
+        private void add_weapon_operation_rule_add_button_Click(object sender, EventArgs e)
+        {
+            if (add_weapon_operation_field_rule_name.Text != "" && add_weapon_operation_field_rule_name.Text != null)
+            {
+                string temp_rule = add_weapon_operation_field_rule_name.Text;
+                if (weapon_rules_names.Contains(temp_rule))
+                {
+                    temp_weapon_rule_to_add.Add(temp_rule);
+                    add_weapon_operation_output_label.Text = $"Weapon rule {temp_rule} successfully added.";
+                }
+                else
+                {
+                    if (temp_rule.Contains(" "))
+                    {
+                        if (weapon_rules_names.Contains(temp_rule.Substring(0, temp_rule.IndexOf(' '))))
+                        {
+                            temp_weapon_rule_to_add.Add(temp_rule);
+                            add_weapon_operation_output_label.Text = $"Weapon rule {temp_rule} successfully added.";
+                        }
+                        else
+                        {
+                            add_weapon_operation_output_label.Text = "Error! Unknown weapon rule.";
+                        }
+                    }
+                    else
+                    {
+                        add_weapon_operation_output_label.Text =  "Error! Unknown weapon rule.";
+                    }
+                }
+            }
+            else
+            {
+                add_weapon_operation_output_label.Text = "Error to adding new rule. Empty fields.";
+            }
+        }
+
+        private void add_weapon_operation_box_type_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void add_operative_operation_weapon_add_button_Click(object sender, EventArgs e)
+        {
+            if (add_operative_operation_field_weapon_id.Text != "" && add_operative_operation_field_weapon_id.Text != null)
+            {
+                List<int> weapons_id_list = new List<int> { };
+                foreach (Weapon w in current_weapons_list)
+                {
+                    weapons_id_list.Add(w.id);
+                }
+
+                int w_id_to_add = Int32.Parse(add_operative_operation_field_weapon_id.Text);
+                if (!weapons_id_list.Contains(w_id_to_add))
+                {
+                    add_operative_operation_output_label.Text = "Error! Operatives with this ID doesn't exist!";
+                }
+                else
+                {
+                    temp_operative_weapon_id_to_add.Add(w_id_to_add);
+                    add_operative_operation_output_label.Text = $"New operative with ID {w_id_to_add} successfully added.";
+                }
+            }
+            else
+            {
+                add_operative_operation_output_label.Text = "Error to adding new weapon. Empty field.";
+            }
+        }
+
+        private void add_operative_operation_abilities_add_button_Click(object sender, EventArgs e)
+        {
+            if (add_operative_operation_field_abilities.Text != "" && add_operative_operation_field_abilities.Text != null)
+            {
+                if (temp_operative_abilities_to_add != "")
+                {
+                    temp_operative_abilities_to_add += "\n";
+                }
+                temp_operative_abilities_to_add += add_operative_operation_field_abilities.Text;
+                add_operative_operation_output_label.Text = $"New ability {add_operative_operation_field_abilities.Text} successfully added.";
+            }
+            else
+            {
+                add_operative_operation_output_label.Text = "Error to adding new ability. Empty field.";
+            }
+        }
+
+        private void add_operative_operation_keywords_add_button_Click(object sender, EventArgs e)
+        {
+            if (add_operative_operation_field_keywords.Text != "" && add_operative_operation_field_keywords.Text != null)
+            {
+                temp_operative_keywords_to_add.Add(add_operative_operation_field_keywords.Text);
+                add_operative_operation_output_label.Text = $"New keyword {add_operative_operation_field_keywords.Text} successfully added.";
+            }
+            else
+            {
+                add_operative_operation_output_label.Text = "Error to adding new keyword. Empty field.";
             }
         }
     }

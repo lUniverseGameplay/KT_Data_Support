@@ -117,11 +117,57 @@
             this.add_team_operation_output_label = new System.Windows.Forms.Label();
             this.add_team_operation_field_name = new System.Windows.Forms.TextBox();
             this.add_team_operation_header_name = new System.Windows.Forms.Label();
+            this.operation_add_weapon_box = new System.Windows.Forms.GroupBox();
+            this.add_weapon_operation_output_header = new System.Windows.Forms.Label();
+            this.add_weapon_operation_output_label = new System.Windows.Forms.Label();
+            this.add_weapon_operation_field_team_name = new System.Windows.Forms.TextBox();
+            this.add_weapon_operation_header_team_name = new System.Windows.Forms.Label();
+            this.add_weapon_operation_header_type = new System.Windows.Forms.Label();
+            this.add_weapon_operation_box_type = new System.Windows.Forms.ComboBox();
+            this.add_weapon_operation_field_name = new System.Windows.Forms.TextBox();
+            this.add_weapon_operation_header_name = new System.Windows.Forms.Label();
+            this.add_weapon_operation_field_attack = new System.Windows.Forms.TextBox();
+            this.add_weapon_operation_header_attack = new System.Windows.Forms.Label();
+            this.add_weapon_operation_field_hit = new System.Windows.Forms.TextBox();
+            this.add_weapon_operation_header_hit = new System.Windows.Forms.Label();
+            this.add_weapon_operation_field_cd = new System.Windows.Forms.TextBox();
+            this.add_weapon_operation_header_cd = new System.Windows.Forms.Label();
+            this.add_weapon_operation_field_nd = new System.Windows.Forms.TextBox();
+            this.add_weapon_operation_header_nd = new System.Windows.Forms.Label();
+            this.add_weapon_operation_rule_add_button = new System.Windows.Forms.Button();
+            this.add_weapon_operation_field_rule_name = new System.Windows.Forms.TextBox();
+            this.add_weapon_operation_header_rule_name = new System.Windows.Forms.Label();
+            this.add_operative_operation_output_label = new System.Windows.Forms.Label();
+            this.add_operative_operation_output_header = new System.Windows.Forms.Label();
+            this.add_operative_operation_header_team_name = new System.Windows.Forms.Label();
+            this.add_operative_operation_field_team_name = new System.Windows.Forms.TextBox();
+            this.operation_add_operative_box = new System.Windows.Forms.GroupBox();
+            this.add_operative_operation_field_name = new System.Windows.Forms.TextBox();
+            this.add_operative_operation_header_name = new System.Windows.Forms.Label();
+            this.add_operative_operation_field_wounds = new System.Windows.Forms.TextBox();
+            this.add_operative_operation_header_wounds = new System.Windows.Forms.Label();
+            this.add_operative_operation_field_save = new System.Windows.Forms.TextBox();
+            this.add_operative_operation_header_save = new System.Windows.Forms.Label();
+            this.add_operative_operation_field_move = new System.Windows.Forms.TextBox();
+            this.add_operative_operation_header_move = new System.Windows.Forms.Label();
+            this.add_operative_operation_field_apl = new System.Windows.Forms.TextBox();
+            this.add_operative_operation_header_apl = new System.Windows.Forms.Label();
+            this.add_operative_operation_weapon_add_button = new System.Windows.Forms.Button();
+            this.add_operative_operation_field_weapon_id = new System.Windows.Forms.TextBox();
+            this.add_operative_operation_header_weapon_id = new System.Windows.Forms.Label();
+            this.add_operative_operation_abilities_add_button = new System.Windows.Forms.Button();
+            this.add_operative_operation_field_abilities = new System.Windows.Forms.TextBox();
+            this.add_operative_operation_header_abilities = new System.Windows.Forms.Label();
+            this.add_operative_operation_keywords_add_button = new System.Windows.Forms.Button();
+            this.add_operative_operation_field_keywords = new System.Windows.Forms.TextBox();
+            this.add_operative_operation_header_keywords = new System.Windows.Forms.Label();
             this.Full_output_weapon_box.SuspendLayout();
             this.Full_output_operative_box.SuspendLayout();
             this.Full_output_team_box.SuspendLayout();
             this.operation_delete_box.SuspendLayout();
             this.operation_add_team_box.SuspendLayout();
+            this.operation_add_weapon_box.SuspendLayout();
+            this.operation_add_operative_box.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBox_Teams
@@ -1100,11 +1146,479 @@
             this.add_team_operation_header_name.Text = "Team name:";
             this.add_team_operation_header_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // operation_add_weapon_box
+            // 
+            this.operation_add_weapon_box.BackColor = System.Drawing.Color.Gainsboro;
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_field_cd);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_rule_add_button);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_field_rule_name);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_header_cd);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_field_nd);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_header_rule_name);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_header_nd);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_field_hit);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_header_hit);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_field_attack);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_header_attack);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_field_name);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_header_name);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_header_type);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_field_team_name);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_box_type);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_header_team_name);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_output_header);
+            this.operation_add_weapon_box.Controls.Add(this.add_weapon_operation_output_label);
+            this.operation_add_weapon_box.Location = new System.Drawing.Point(139, 12);
+            this.operation_add_weapon_box.Name = "operation_add_weapon_box";
+            this.operation_add_weapon_box.Size = new System.Drawing.Size(395, 444);
+            this.operation_add_weapon_box.TabIndex = 60;
+            this.operation_add_weapon_box.TabStop = false;
+            this.operation_add_weapon_box.Text = "Add weapon";
+            // 
+            // add_weapon_operation_output_header
+            // 
+            this.add_weapon_operation_output_header.BackColor = System.Drawing.Color.Silver;
+            this.add_weapon_operation_output_header.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_weapon_operation_output_header.Location = new System.Drawing.Point(3, 342);
+            this.add_weapon_operation_output_header.Name = "add_weapon_operation_output_header";
+            this.add_weapon_operation_output_header.Size = new System.Drawing.Size(386, 18);
+            this.add_weapon_operation_output_header.TabIndex = 35;
+            this.add_weapon_operation_output_header.Text = "Result of adding element of team";
+            this.add_weapon_operation_output_header.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // add_weapon_operation_output_label
+            // 
+            this.add_weapon_operation_output_label.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.add_weapon_operation_output_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.add_weapon_operation_output_label.ForeColor = System.Drawing.SystemColors.Control;
+            this.add_weapon_operation_output_label.Location = new System.Drawing.Point(3, 360);
+            this.add_weapon_operation_output_label.Name = "add_weapon_operation_output_label";
+            this.add_weapon_operation_output_label.Size = new System.Drawing.Size(386, 81);
+            this.add_weapon_operation_output_label.TabIndex = 34;
+            this.add_weapon_operation_output_label.Text = "Result of adding";
+            this.add_weapon_operation_output_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_weapon_operation_field_team_name
+            // 
+            this.add_weapon_operation_field_team_name.Location = new System.Drawing.Point(87, 40);
+            this.add_weapon_operation_field_team_name.Name = "add_weapon_operation_field_team_name";
+            this.add_weapon_operation_field_team_name.Size = new System.Drawing.Size(302, 20);
+            this.add_weapon_operation_field_team_name.TabIndex = 60;
+            // 
+            // add_weapon_operation_header_team_name
+            // 
+            this.add_weapon_operation_header_team_name.BackColor = System.Drawing.Color.Silver;
+            this.add_weapon_operation_header_team_name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_weapon_operation_header_team_name.Location = new System.Drawing.Point(6, 40);
+            this.add_weapon_operation_header_team_name.Name = "add_weapon_operation_header_team_name";
+            this.add_weapon_operation_header_team_name.Size = new System.Drawing.Size(75, 20);
+            this.add_weapon_operation_header_team_name.TabIndex = 61;
+            this.add_weapon_operation_header_team_name.Text = "Team name:";
+            this.add_weapon_operation_header_team_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_weapon_operation_header_type
+            // 
+            this.add_weapon_operation_header_type.BackColor = System.Drawing.Color.Silver;
+            this.add_weapon_operation_header_type.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_weapon_operation_header_type.Location = new System.Drawing.Point(6, 83);
+            this.add_weapon_operation_header_type.Name = "add_weapon_operation_header_type";
+            this.add_weapon_operation_header_type.Size = new System.Drawing.Size(75, 20);
+            this.add_weapon_operation_header_type.TabIndex = 61;
+            this.add_weapon_operation_header_type.Text = "Type:";
+            this.add_weapon_operation_header_type.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_weapon_operation_box_type
+            // 
+            this.add_weapon_operation_box_type.AutoCompleteCustomSource.AddRange(new string[] {
+            "Ranged",
+            "Melee"});
+            this.add_weapon_operation_box_type.FormattingEnabled = true;
+            this.add_weapon_operation_box_type.Items.AddRange(new object[] {
+            "Ranged",
+            "Melee"});
+            this.add_weapon_operation_box_type.Location = new System.Drawing.Point(87, 83);
+            this.add_weapon_operation_box_type.Name = "add_weapon_operation_box_type";
+            this.add_weapon_operation_box_type.Size = new System.Drawing.Size(302, 21);
+            this.add_weapon_operation_box_type.TabIndex = 60;
+            this.add_weapon_operation_box_type.SelectedIndexChanged += new System.EventHandler(this.add_weapon_operation_box_type_SelectedIndexChanged);
+            // 
+            // add_weapon_operation_field_name
+            // 
+            this.add_weapon_operation_field_name.Location = new System.Drawing.Point(87, 129);
+            this.add_weapon_operation_field_name.Name = "add_weapon_operation_field_name";
+            this.add_weapon_operation_field_name.Size = new System.Drawing.Size(302, 20);
+            this.add_weapon_operation_field_name.TabIndex = 62;
+            // 
+            // add_weapon_operation_header_name
+            // 
+            this.add_weapon_operation_header_name.BackColor = System.Drawing.Color.Silver;
+            this.add_weapon_operation_header_name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_weapon_operation_header_name.Location = new System.Drawing.Point(6, 129);
+            this.add_weapon_operation_header_name.Name = "add_weapon_operation_header_name";
+            this.add_weapon_operation_header_name.Size = new System.Drawing.Size(75, 20);
+            this.add_weapon_operation_header_name.TabIndex = 63;
+            this.add_weapon_operation_header_name.Text = "Name:";
+            this.add_weapon_operation_header_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_weapon_operation_field_attack
+            // 
+            this.add_weapon_operation_field_attack.Location = new System.Drawing.Point(6, 201);
+            this.add_weapon_operation_field_attack.Name = "add_weapon_operation_field_attack";
+            this.add_weapon_operation_field_attack.Size = new System.Drawing.Size(194, 20);
+            this.add_weapon_operation_field_attack.TabIndex = 64;
+            // 
+            // add_weapon_operation_header_attack
+            // 
+            this.add_weapon_operation_header_attack.BackColor = System.Drawing.Color.Silver;
+            this.add_weapon_operation_header_attack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_weapon_operation_header_attack.Location = new System.Drawing.Point(6, 173);
+            this.add_weapon_operation_header_attack.Name = "add_weapon_operation_header_attack";
+            this.add_weapon_operation_header_attack.Size = new System.Drawing.Size(194, 20);
+            this.add_weapon_operation_header_attack.TabIndex = 65;
+            this.add_weapon_operation_header_attack.Text = "Attack stat:";
+            this.add_weapon_operation_header_attack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_weapon_operation_field_hit
+            // 
+            this.add_weapon_operation_field_hit.Location = new System.Drawing.Point(206, 201);
+            this.add_weapon_operation_field_hit.Name = "add_weapon_operation_field_hit";
+            this.add_weapon_operation_field_hit.Size = new System.Drawing.Size(183, 20);
+            this.add_weapon_operation_field_hit.TabIndex = 66;
+            // 
+            // add_weapon_operation_header_hit
+            // 
+            this.add_weapon_operation_header_hit.BackColor = System.Drawing.Color.Silver;
+            this.add_weapon_operation_header_hit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_weapon_operation_header_hit.Location = new System.Drawing.Point(206, 173);
+            this.add_weapon_operation_header_hit.Name = "add_weapon_operation_header_hit";
+            this.add_weapon_operation_header_hit.Size = new System.Drawing.Size(183, 20);
+            this.add_weapon_operation_header_hit.TabIndex = 67;
+            this.add_weapon_operation_header_hit.Text = "Hit stat:";
+            this.add_weapon_operation_header_hit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_weapon_operation_field_cd
+            // 
+            this.add_weapon_operation_field_cd.Location = new System.Drawing.Point(206, 264);
+            this.add_weapon_operation_field_cd.Name = "add_weapon_operation_field_cd";
+            this.add_weapon_operation_field_cd.Size = new System.Drawing.Size(183, 20);
+            this.add_weapon_operation_field_cd.TabIndex = 70;
+            // 
+            // add_weapon_operation_header_cd
+            // 
+            this.add_weapon_operation_header_cd.BackColor = System.Drawing.Color.Silver;
+            this.add_weapon_operation_header_cd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_weapon_operation_header_cd.Location = new System.Drawing.Point(206, 236);
+            this.add_weapon_operation_header_cd.Name = "add_weapon_operation_header_cd";
+            this.add_weapon_operation_header_cd.Size = new System.Drawing.Size(183, 20);
+            this.add_weapon_operation_header_cd.TabIndex = 71;
+            this.add_weapon_operation_header_cd.Text = "Critical damage stat:";
+            this.add_weapon_operation_header_cd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_weapon_operation_field_nd
+            // 
+            this.add_weapon_operation_field_nd.Location = new System.Drawing.Point(6, 264);
+            this.add_weapon_operation_field_nd.Name = "add_weapon_operation_field_nd";
+            this.add_weapon_operation_field_nd.Size = new System.Drawing.Size(194, 20);
+            this.add_weapon_operation_field_nd.TabIndex = 68;
+            // 
+            // add_weapon_operation_header_nd
+            // 
+            this.add_weapon_operation_header_nd.BackColor = System.Drawing.Color.Silver;
+            this.add_weapon_operation_header_nd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_weapon_operation_header_nd.Location = new System.Drawing.Point(6, 236);
+            this.add_weapon_operation_header_nd.Name = "add_weapon_operation_header_nd";
+            this.add_weapon_operation_header_nd.Size = new System.Drawing.Size(194, 20);
+            this.add_weapon_operation_header_nd.TabIndex = 69;
+            this.add_weapon_operation_header_nd.Text = "Normal damage stat:";
+            this.add_weapon_operation_header_nd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_weapon_operation_rule_add_button
+            // 
+            this.add_weapon_operation_rule_add_button.BackColor = System.Drawing.Color.DarkGray;
+            this.add_weapon_operation_rule_add_button.Location = new System.Drawing.Point(268, 302);
+            this.add_weapon_operation_rule_add_button.Name = "add_weapon_operation_rule_add_button";
+            this.add_weapon_operation_rule_add_button.Size = new System.Drawing.Size(121, 25);
+            this.add_weapon_operation_rule_add_button.TabIndex = 60;
+            this.add_weapon_operation_rule_add_button.Text = "Add new rule";
+            this.add_weapon_operation_rule_add_button.UseVisualStyleBackColor = false;
+            this.add_weapon_operation_rule_add_button.Click += new System.EventHandler(this.add_weapon_operation_rule_add_button_Click);
+            // 
+            // add_weapon_operation_field_rule_name
+            // 
+            this.add_weapon_operation_field_rule_name.Location = new System.Drawing.Point(87, 305);
+            this.add_weapon_operation_field_rule_name.Name = "add_weapon_operation_field_rule_name";
+            this.add_weapon_operation_field_rule_name.Size = new System.Drawing.Size(175, 20);
+            this.add_weapon_operation_field_rule_name.TabIndex = 63;
+            // 
+            // add_weapon_operation_header_rule_name
+            // 
+            this.add_weapon_operation_header_rule_name.BackColor = System.Drawing.Color.Silver;
+            this.add_weapon_operation_header_rule_name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_weapon_operation_header_rule_name.Location = new System.Drawing.Point(6, 305);
+            this.add_weapon_operation_header_rule_name.Name = "add_weapon_operation_header_rule_name";
+            this.add_weapon_operation_header_rule_name.Size = new System.Drawing.Size(75, 20);
+            this.add_weapon_operation_header_rule_name.TabIndex = 61;
+            this.add_weapon_operation_header_rule_name.Text = "Rule:";
+            this.add_weapon_operation_header_rule_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_operative_operation_output_label
+            // 
+            this.add_operative_operation_output_label.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.add_operative_operation_output_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.add_operative_operation_output_label.ForeColor = System.Drawing.SystemColors.Control;
+            this.add_operative_operation_output_label.Location = new System.Drawing.Point(3, 360);
+            this.add_operative_operation_output_label.Name = "add_operative_operation_output_label";
+            this.add_operative_operation_output_label.Size = new System.Drawing.Size(386, 81);
+            this.add_operative_operation_output_label.TabIndex = 34;
+            this.add_operative_operation_output_label.Text = "Result of adding";
+            this.add_operative_operation_output_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_operative_operation_output_header
+            // 
+            this.add_operative_operation_output_header.BackColor = System.Drawing.Color.Silver;
+            this.add_operative_operation_output_header.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_operative_operation_output_header.Location = new System.Drawing.Point(3, 342);
+            this.add_operative_operation_output_header.Name = "add_operative_operation_output_header";
+            this.add_operative_operation_output_header.Size = new System.Drawing.Size(386, 18);
+            this.add_operative_operation_output_header.TabIndex = 35;
+            this.add_operative_operation_output_header.Text = "Result of adding element of team";
+            this.add_operative_operation_output_header.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // add_operative_operation_header_team_name
+            // 
+            this.add_operative_operation_header_team_name.BackColor = System.Drawing.Color.Silver;
+            this.add_operative_operation_header_team_name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_operative_operation_header_team_name.Location = new System.Drawing.Point(6, 40);
+            this.add_operative_operation_header_team_name.Name = "add_operative_operation_header_team_name";
+            this.add_operative_operation_header_team_name.Size = new System.Drawing.Size(75, 20);
+            this.add_operative_operation_header_team_name.TabIndex = 61;
+            this.add_operative_operation_header_team_name.Text = "Team name:";
+            this.add_operative_operation_header_team_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_operative_operation_field_team_name
+            // 
+            this.add_operative_operation_field_team_name.Location = new System.Drawing.Point(87, 40);
+            this.add_operative_operation_field_team_name.Name = "add_operative_operation_field_team_name";
+            this.add_operative_operation_field_team_name.Size = new System.Drawing.Size(302, 20);
+            this.add_operative_operation_field_team_name.TabIndex = 60;
+            // 
+            // operation_add_operative_box
+            // 
+            this.operation_add_operative_box.BackColor = System.Drawing.Color.Gainsboro;
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_keywords_add_button);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_field_keywords);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_header_keywords);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_abilities_add_button);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_field_abilities);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_weapon_add_button);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_header_abilities);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_field_wounds);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_field_weapon_id);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_header_weapon_id);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_field_name);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_header_wounds);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_header_name);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_field_save);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_field_team_name);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_header_save);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_header_team_name);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_field_move);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_output_header);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_header_move);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_field_apl);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_output_label);
+            this.operation_add_operative_box.Controls.Add(this.add_operative_operation_header_apl);
+            this.operation_add_operative_box.Location = new System.Drawing.Point(139, 12);
+            this.operation_add_operative_box.Name = "operation_add_operative_box";
+            this.operation_add_operative_box.Size = new System.Drawing.Size(395, 444);
+            this.operation_add_operative_box.TabIndex = 72;
+            this.operation_add_operative_box.TabStop = false;
+            this.operation_add_operative_box.Text = "Add operative";
+            // 
+            // add_operative_operation_field_name
+            // 
+            this.add_operative_operation_field_name.Location = new System.Drawing.Point(87, 71);
+            this.add_operative_operation_field_name.Name = "add_operative_operation_field_name";
+            this.add_operative_operation_field_name.Size = new System.Drawing.Size(302, 20);
+            this.add_operative_operation_field_name.TabIndex = 62;
+            // 
+            // add_operative_operation_header_name
+            // 
+            this.add_operative_operation_header_name.BackColor = System.Drawing.Color.Silver;
+            this.add_operative_operation_header_name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_operative_operation_header_name.Location = new System.Drawing.Point(6, 71);
+            this.add_operative_operation_header_name.Name = "add_operative_operation_header_name";
+            this.add_operative_operation_header_name.Size = new System.Drawing.Size(75, 20);
+            this.add_operative_operation_header_name.TabIndex = 63;
+            this.add_operative_operation_header_name.Text = "Name:";
+            this.add_operative_operation_header_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_operative_operation_field_wounds
+            // 
+            this.add_operative_operation_field_wounds.Location = new System.Drawing.Point(206, 194);
+            this.add_operative_operation_field_wounds.Name = "add_operative_operation_field_wounds";
+            this.add_operative_operation_field_wounds.Size = new System.Drawing.Size(183, 20);
+            this.add_operative_operation_field_wounds.TabIndex = 78;
+            // 
+            // add_operative_operation_header_wounds
+            // 
+            this.add_operative_operation_header_wounds.BackColor = System.Drawing.Color.Silver;
+            this.add_operative_operation_header_wounds.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_operative_operation_header_wounds.Location = new System.Drawing.Point(206, 166);
+            this.add_operative_operation_header_wounds.Name = "add_operative_operation_header_wounds";
+            this.add_operative_operation_header_wounds.Size = new System.Drawing.Size(183, 20);
+            this.add_operative_operation_header_wounds.TabIndex = 79;
+            this.add_operative_operation_header_wounds.Text = "Wounds stat:";
+            this.add_operative_operation_header_wounds.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_operative_operation_field_save
+            // 
+            this.add_operative_operation_field_save.Location = new System.Drawing.Point(6, 194);
+            this.add_operative_operation_field_save.Name = "add_operative_operation_field_save";
+            this.add_operative_operation_field_save.Size = new System.Drawing.Size(194, 20);
+            this.add_operative_operation_field_save.TabIndex = 76;
+            // 
+            // add_operative_operation_header_save
+            // 
+            this.add_operative_operation_header_save.BackColor = System.Drawing.Color.Silver;
+            this.add_operative_operation_header_save.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_operative_operation_header_save.Location = new System.Drawing.Point(6, 166);
+            this.add_operative_operation_header_save.Name = "add_operative_operation_header_save";
+            this.add_operative_operation_header_save.Size = new System.Drawing.Size(194, 20);
+            this.add_operative_operation_header_save.TabIndex = 77;
+            this.add_operative_operation_header_save.Text = "Save stat:";
+            this.add_operative_operation_header_save.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_operative_operation_field_move
+            // 
+            this.add_operative_operation_field_move.Location = new System.Drawing.Point(206, 131);
+            this.add_operative_operation_field_move.Name = "add_operative_operation_field_move";
+            this.add_operative_operation_field_move.Size = new System.Drawing.Size(183, 20);
+            this.add_operative_operation_field_move.TabIndex = 74;
+            // 
+            // add_operative_operation_header_move
+            // 
+            this.add_operative_operation_header_move.BackColor = System.Drawing.Color.Silver;
+            this.add_operative_operation_header_move.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_operative_operation_header_move.Location = new System.Drawing.Point(206, 103);
+            this.add_operative_operation_header_move.Name = "add_operative_operation_header_move";
+            this.add_operative_operation_header_move.Size = new System.Drawing.Size(183, 20);
+            this.add_operative_operation_header_move.TabIndex = 75;
+            this.add_operative_operation_header_move.Text = "Move stat:";
+            this.add_operative_operation_header_move.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_operative_operation_field_apl
+            // 
+            this.add_operative_operation_field_apl.Location = new System.Drawing.Point(6, 131);
+            this.add_operative_operation_field_apl.Name = "add_operative_operation_field_apl";
+            this.add_operative_operation_field_apl.Size = new System.Drawing.Size(194, 20);
+            this.add_operative_operation_field_apl.TabIndex = 72;
+            // 
+            // add_operative_operation_header_apl
+            // 
+            this.add_operative_operation_header_apl.BackColor = System.Drawing.Color.Silver;
+            this.add_operative_operation_header_apl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_operative_operation_header_apl.Location = new System.Drawing.Point(6, 103);
+            this.add_operative_operation_header_apl.Name = "add_operative_operation_header_apl";
+            this.add_operative_operation_header_apl.Size = new System.Drawing.Size(194, 20);
+            this.add_operative_operation_header_apl.TabIndex = 73;
+            this.add_operative_operation_header_apl.Text = "APL stat:";
+            this.add_operative_operation_header_apl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_operative_operation_weapon_add_button
+            // 
+            this.add_operative_operation_weapon_add_button.BackColor = System.Drawing.Color.DarkGray;
+            this.add_operative_operation_weapon_add_button.Location = new System.Drawing.Point(251, 220);
+            this.add_operative_operation_weapon_add_button.Name = "add_operative_operation_weapon_add_button";
+            this.add_operative_operation_weapon_add_button.Size = new System.Drawing.Size(138, 25);
+            this.add_operative_operation_weapon_add_button.TabIndex = 74;
+            this.add_operative_operation_weapon_add_button.Text = "Add new weapon";
+            this.add_operative_operation_weapon_add_button.UseVisualStyleBackColor = false;
+            this.add_operative_operation_weapon_add_button.Click += new System.EventHandler(this.add_operative_operation_weapon_add_button_Click);
+            // 
+            // add_operative_operation_field_weapon_id
+            // 
+            this.add_operative_operation_field_weapon_id.Location = new System.Drawing.Point(120, 223);
+            this.add_operative_operation_field_weapon_id.Name = "add_operative_operation_field_weapon_id";
+            this.add_operative_operation_field_weapon_id.Size = new System.Drawing.Size(125, 20);
+            this.add_operative_operation_field_weapon_id.TabIndex = 73;
+            // 
+            // add_operative_operation_header_weapon_id
+            // 
+            this.add_operative_operation_header_weapon_id.BackColor = System.Drawing.Color.Silver;
+            this.add_operative_operation_header_weapon_id.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_operative_operation_header_weapon_id.Location = new System.Drawing.Point(6, 223);
+            this.add_operative_operation_header_weapon_id.Name = "add_operative_operation_header_weapon_id";
+            this.add_operative_operation_header_weapon_id.Size = new System.Drawing.Size(108, 20);
+            this.add_operative_operation_header_weapon_id.TabIndex = 72;
+            this.add_operative_operation_header_weapon_id.Text = "Weapons id:";
+            this.add_operative_operation_header_weapon_id.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_operative_operation_abilities_add_button
+            // 
+            this.add_operative_operation_abilities_add_button.BackColor = System.Drawing.Color.DarkGray;
+            this.add_operative_operation_abilities_add_button.Location = new System.Drawing.Point(268, 275);
+            this.add_operative_operation_abilities_add_button.Name = "add_operative_operation_abilities_add_button";
+            this.add_operative_operation_abilities_add_button.Size = new System.Drawing.Size(121, 25);
+            this.add_operative_operation_abilities_add_button.TabIndex = 72;
+            this.add_operative_operation_abilities_add_button.Text = "Add new abilities";
+            this.add_operative_operation_abilities_add_button.UseVisualStyleBackColor = false;
+            this.add_operative_operation_abilities_add_button.Click += new System.EventHandler(this.add_operative_operation_abilities_add_button_Click);
+            // 
+            // add_operative_operation_field_abilities
+            // 
+            this.add_operative_operation_field_abilities.Location = new System.Drawing.Point(6, 278);
+            this.add_operative_operation_field_abilities.Name = "add_operative_operation_field_abilities";
+            this.add_operative_operation_field_abilities.Size = new System.Drawing.Size(256, 20);
+            this.add_operative_operation_field_abilities.TabIndex = 74;
+            // 
+            // add_operative_operation_header_abilities
+            // 
+            this.add_operative_operation_header_abilities.BackColor = System.Drawing.Color.Silver;
+            this.add_operative_operation_header_abilities.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_operative_operation_header_abilities.Location = new System.Drawing.Point(6, 252);
+            this.add_operative_operation_header_abilities.Name = "add_operative_operation_header_abilities";
+            this.add_operative_operation_header_abilities.Size = new System.Drawing.Size(383, 20);
+            this.add_operative_operation_header_abilities.TabIndex = 73;
+            this.add_operative_operation_header_abilities.Text = "Abilities (paragraphs devide by \';\' symbol)::";
+            this.add_operative_operation_header_abilities.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // add_operative_operation_keywords_add_button
+            // 
+            this.add_operative_operation_keywords_add_button.BackColor = System.Drawing.Color.DarkGray;
+            this.add_operative_operation_keywords_add_button.Location = new System.Drawing.Point(268, 304);
+            this.add_operative_operation_keywords_add_button.Name = "add_operative_operation_keywords_add_button";
+            this.add_operative_operation_keywords_add_button.Size = new System.Drawing.Size(121, 25);
+            this.add_operative_operation_keywords_add_button.TabIndex = 80;
+            this.add_operative_operation_keywords_add_button.Text = "Add new keywords";
+            this.add_operative_operation_keywords_add_button.UseVisualStyleBackColor = false;
+            this.add_operative_operation_keywords_add_button.Click += new System.EventHandler(this.add_operative_operation_keywords_add_button_Click);
+            // 
+            // add_operative_operation_field_keywords
+            // 
+            this.add_operative_operation_field_keywords.Location = new System.Drawing.Point(87, 307);
+            this.add_operative_operation_field_keywords.Name = "add_operative_operation_field_keywords";
+            this.add_operative_operation_field_keywords.Size = new System.Drawing.Size(175, 20);
+            this.add_operative_operation_field_keywords.TabIndex = 82;
+            // 
+            // add_operative_operation_header_keywords
+            // 
+            this.add_operative_operation_header_keywords.BackColor = System.Drawing.Color.Silver;
+            this.add_operative_operation_header_keywords.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.add_operative_operation_header_keywords.Location = new System.Drawing.Point(6, 307);
+            this.add_operative_operation_header_keywords.Name = "add_operative_operation_header_keywords";
+            this.add_operative_operation_header_keywords.Size = new System.Drawing.Size(75, 20);
+            this.add_operative_operation_header_keywords.TabIndex = 81;
+            this.add_operative_operation_header_keywords.Text = "Keywords:";
+            this.add_operative_operation_header_keywords.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 561);
+            this.Controls.Add(this.operation_add_operative_box);
+            this.Controls.Add(this.operation_add_weapon_box);
             this.Controls.Add(this.operation_add_team_box);
             this.Controls.Add(this.apply_button);
             this.Controls.Add(this.Operation_object_header);
@@ -1137,6 +1651,10 @@
             this.operation_delete_box.PerformLayout();
             this.operation_add_team_box.ResumeLayout(false);
             this.operation_add_team_box.PerformLayout();
+            this.operation_add_weapon_box.ResumeLayout(false);
+            this.operation_add_weapon_box.PerformLayout();
+            this.operation_add_operative_box.ResumeLayout(false);
+            this.operation_add_operative_box.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1233,6 +1751,50 @@
         private System.Windows.Forms.TextBox add_team_operation_field_oper_id;
         private System.Windows.Forms.Label add_team_operation_header_oper_id;
         private System.Windows.Forms.Button add_team_operation_oper_add_button;
+        private System.Windows.Forms.GroupBox operation_add_weapon_box;
+        private System.Windows.Forms.Label add_weapon_operation_output_header;
+        private System.Windows.Forms.Label add_weapon_operation_output_label;
+        private System.Windows.Forms.TextBox add_weapon_operation_field_hit;
+        private System.Windows.Forms.Label add_weapon_operation_header_hit;
+        private System.Windows.Forms.TextBox add_weapon_operation_field_attack;
+        private System.Windows.Forms.Label add_weapon_operation_header_attack;
+        private System.Windows.Forms.TextBox add_weapon_operation_field_name;
+        private System.Windows.Forms.Label add_weapon_operation_header_name;
+        private System.Windows.Forms.Label add_weapon_operation_header_type;
+        private System.Windows.Forms.TextBox add_weapon_operation_field_team_name;
+        private System.Windows.Forms.ComboBox add_weapon_operation_box_type;
+        private System.Windows.Forms.Label add_weapon_operation_header_team_name;
+        private System.Windows.Forms.TextBox add_weapon_operation_field_cd;
+        private System.Windows.Forms.Label add_weapon_operation_header_cd;
+        private System.Windows.Forms.TextBox add_weapon_operation_field_nd;
+        private System.Windows.Forms.Label add_weapon_operation_header_nd;
+        private System.Windows.Forms.Button add_weapon_operation_rule_add_button;
+        private System.Windows.Forms.TextBox add_weapon_operation_field_rule_name;
+        private System.Windows.Forms.Label add_weapon_operation_header_rule_name;
+        private System.Windows.Forms.Label add_operative_operation_output_label;
+        private System.Windows.Forms.Label add_operative_operation_output_header;
+        private System.Windows.Forms.Label add_operative_operation_header_team_name;
+        private System.Windows.Forms.TextBox add_operative_operation_field_team_name;
+        private System.Windows.Forms.GroupBox operation_add_operative_box;
+        private System.Windows.Forms.Button add_operative_operation_keywords_add_button;
+        private System.Windows.Forms.TextBox add_operative_operation_field_keywords;
+        private System.Windows.Forms.Label add_operative_operation_header_keywords;
+        private System.Windows.Forms.Button add_operative_operation_abilities_add_button;
+        private System.Windows.Forms.TextBox add_operative_operation_field_abilities;
+        private System.Windows.Forms.Button add_operative_operation_weapon_add_button;
+        private System.Windows.Forms.Label add_operative_operation_header_abilities;
+        private System.Windows.Forms.TextBox add_operative_operation_field_wounds;
+        private System.Windows.Forms.TextBox add_operative_operation_field_weapon_id;
+        private System.Windows.Forms.Label add_operative_operation_header_weapon_id;
+        private System.Windows.Forms.TextBox add_operative_operation_field_name;
+        private System.Windows.Forms.Label add_operative_operation_header_wounds;
+        private System.Windows.Forms.Label add_operative_operation_header_name;
+        private System.Windows.Forms.TextBox add_operative_operation_field_save;
+        private System.Windows.Forms.Label add_operative_operation_header_save;
+        private System.Windows.Forms.TextBox add_operative_operation_field_move;
+        private System.Windows.Forms.Label add_operative_operation_header_move;
+        private System.Windows.Forms.TextBox add_operative_operation_field_apl;
+        private System.Windows.Forms.Label add_operative_operation_header_apl;
     }
 }
 

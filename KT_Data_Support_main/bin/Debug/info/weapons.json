@@ -28,5 +28,20 @@
       "Hot",
       "Lethal 5\u002B"
     ]
+  },
+  {
+    "id": 3,
+    "Team_name": "Kasrkin",
+    "Type": "Ranged",
+    "Name": "Hot-shot marksman rifle (concealed)",
+    "Attack": 4,
+    "Hit": 2,
+    "Normal_damage": 3,
+    "Critical_damage": 3,
+    "Rules": [
+      "Devastating 3",
+      "Heavy",
+      "Silent"
+    ]
   }
 ]
