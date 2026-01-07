@@ -815,7 +815,7 @@ namespace Programm
                 using (StreamReader reader = new StreamReader(dir_name + "weapon_rules.txt"))
                 {
                     string text = reader.ReadToEnd();
-                    foreach (string s in text.Split("\n!"))
+                    foreach (string s in text.Split("!"))
                     {
                         weapon_rules.Add(s);
                     }
@@ -890,7 +890,7 @@ namespace Programm
             //TRASH_operatives_adding(options, dir_name + "operatives.json", current_teams_list, current_weapons_list, current_operatives_list);
             //Console.WriteLine(delete_operative(options, dir_name + "operatives.json", current_operatives_list, 1));
             //TRASH_team_adding(options, dir_name + "kill_teams.json", current_teams_list, current_operatives_list);
-            Console.WriteLine(delete_team(options, dir_name + "kill_teams.json", current_operatives_list, 0));
+            //Console.WriteLine(delete_team(options, dir_name + "kill_teams.json", current_operatives_list, 0));
         }
     }
 }
