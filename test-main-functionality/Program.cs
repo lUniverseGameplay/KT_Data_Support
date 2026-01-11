@@ -631,19 +631,20 @@ namespace Programm
         }
         static void TRASH_team_adding(JsonSerializerOptions options, string path, List<Team> current_kill_teams, List<Operative> current_operatives_list)
         {
-            Console.WriteLine("Введите количество команд для добавления:");
-            int n = Int32.Parse(Console.ReadLine());
+            //Console.WriteLine("Введите количество команд для добавления:");
+            //int n = Int32.Parse(Console.ReadLine());
+            int n = 1;
             
             for(int i=0; i < n; i++)
             {
                 Console.WriteLine("------------------------");
 
-                Console.WriteLine("Введите название команды: ");
-                string name = Console.ReadLine();
-                //string name = "Deathwatch";
+                //Console.WriteLine("Введите название команды: ");
+                //string name = Console.ReadLine();
+                string name = "Kasrkin";
 
                 string team_rules = "";
-                Console.WriteLine("Введите количество правил команды: ");
+                /*Console.WriteLine("Введите количество правил команды: ");
                 int temp_rules_num = Int32.Parse(Console.ReadLine());
                 Console.WriteLine("Если правило содержит несколько пунктов, то следует эти пункты следует записывать в скобках, разделяя их символом ';'. Пример: 'Once per turning point, when a friendly DEATHWATCH operative is performing the Shoot action, in the Select Weapon step, you can use this rule. If you do, select one of the following weapon rules for that operative’s ranged weapons to have until the end of the action. This rule cannot be used with explosive grenades (see universal equipment) or melta bombs: Blast 1;Devastating 1;Lethal 5+;Piercing 1;Rending;Saturate;Severe' ");
                 for (int j = 0; j < temp_rules_num; j++)
@@ -653,10 +654,10 @@ namespace Programm
                     team_rules += Console.ReadLine() + "!";
                     Console.WriteLine("Введите содержание правила: ");
                     team_rules += Console.ReadLine();
-                }
-                //team_rules = "Special Issue Ammunition!Once per turning point, when a friendly DEATHWATCH operative is performing the Shoot action, in the Select Weapon step, you can use this rule. If you do, select one of the following weapon rules for that operative’s ranged weapons to have until the end of the action. This rule cannot be used with explosive grenades (see universal equipment) or melta bombs: Blast 1;Devastating 1;Lethal 5+;Piercing 1;Rending;Saturate;Severe";
+                }*/
+                team_rules = "Special Issue Ammunition!Once per turning point, when a friendly DEATHWATCH operative is performing the Shoot action, in the Select Weapon step, you can use this rule. If you do, select one of the following weapon rules for that operative’s ranged weapons to have until the end of the action. This rule cannot be used with explosive grenades (see universal equipment) or melta bombs: Blast 1;Devastating 1;Lethal 5+;Piercing 1;Rending;Saturate;Severe";
 
-                List<Stratagem> team_stratagems = new List<Stratagem> {};
+                /*List<Stratagem> team_stratagems = new List<Stratagem> {};
                 Console.WriteLine("Введите количество стратагем: ");
                 int temp_ploys_num = Int32.Parse(Console.ReadLine());
                 string ploy_type = "";
@@ -676,13 +677,13 @@ namespace Programm
                     Console.WriteLine("Введите содержание стратагемы: ");
                     ploy_cont = Console.ReadLine();
                     team_stratagems.Add(new Stratagem {Type = ploy_type, Name= ploy_name, Content = ploy_cont});
-                }
-                /*List<Stratagem> team_stratagems = new List<Stratagem> {new Stratagem {Type = "Strategy ploy", Name="MISSION TACTICS", Content="Select Conceal or Engage. Whenever a friendly DEATHWATCH operative is shooting against or fighting against an enemy operative that has that order, that friendly operative’s weapons have the Balanced weapon rule."},
+                }*/
+                List<Stratagem> team_stratagems = new List<Stratagem> {new Stratagem {Type = "Strategy ploy", Name="MISSION TACTICS", Content="Select Conceal or Engage. Whenever a friendly DEATHWATCH operative is shooting against or fighting against an enemy operative that has that order, that friendly operative’s weapons have the Balanced weapon rule."},
                 new Stratagem {Type = "Firefight ploy", Name="SUFFER NOT THE ALIEN", Content="Use this firefight ploy after rolling your attack dice for a friendly DEATHWATCH operative, if it’s shooting against or fighting against an operative that doesn’t have the CHAOS or IMPERIUM keyword. You can re-roll any of your attack dice."}};
-                */
+                
 
                 string team_equip = "";
-                Console.WriteLine("Введите количество фракционного снаряжения команды: ");
+                /*Console.WriteLine("Введите количество фракционного снаряжения команды: ");
                 int temp_equip_num = Int32.Parse(Console.ReadLine());
                 Console.WriteLine("Если снаряжение содержит несколько пунктов, то следует эти пункты следует записывать в скобках, разделяя их символом ';'. Пример: 'Once per turning point, when a friendly DEATHWATCH operative is performing the Shoot action, in the Select Weapon step, you can use this rule. If you do, select one of the following weapon rules for that operative’s ranged weapons to have until the end of the action. This rule cannot be used with explosive grenades (see universal equipment) or melta bombs: Blast 1;Devastating 1;Lethal 5+;Piercing 1;Rending;Saturate;Severe' ");
                 for (int j = 0; j < temp_equip_num; j++)
@@ -692,12 +693,12 @@ namespace Programm
                     team_equip += Console.ReadLine() + "!";
                     Console.WriteLine("Введите содержание снаряжения: ");
                     team_equip += Console.ReadLine();
-                }
-                //team_equip = "DIGITAL WEAPONS!Once per turning point, when a friendly DEATHWATCH operative performs the Fight action, at the start of the Roll Attack Dice step, you can use this rule. If you do, inflict 1 damage on the enemy operative in that sequence.";
+                }*/
+                team_equip = "DIGITAL WEAPONS!Once per turning point, when a friendly DEATHWATCH operative performs the Fight action, at the start of the Roll Attack Dice step, you can use this rule. If you do, inflict 1 damage on the enemy operative in that sequence.";
 
-                Console.WriteLine("Введите архетипы команды в формате 'архетип1 / архетип2': ");
-                string team_arch = Console.ReadLine();
-                //string team_arch = "Seek&Destroy / Security";
+                //Console.WriteLine("Введите архетипы команды в формате 'архетип1 / архетип2': ");
+                //string team_arch = Console.ReadLine();
+                string team_arch = "Seek&Destroy / Security";
 
                 List<int> operatives_id_list = new List<int> {};
                 List<string> operatives_team_list = new List<string> {};
@@ -889,7 +890,7 @@ namespace Programm
             //Console.WriteLine(delete_weapon(options, dir_name + "weapons.json", current_weapons_list, 2));
             //TRASH_operatives_adding(options, dir_name + "operatives.json", current_teams_list, current_weapons_list, current_operatives_list);
             //Console.WriteLine(delete_operative(options, dir_name + "operatives.json", current_operatives_list, 1));
-            //TRASH_team_adding(options, dir_name + "kill_teams.json", current_teams_list, current_operatives_list);
+            TRASH_team_adding(options, dir_name + "kill_teams2.json", current_teams_list, current_operatives_list);
             //Console.WriteLine(delete_team(options, dir_name + "kill_teams.json", current_teams_list, 0));
         }
     }

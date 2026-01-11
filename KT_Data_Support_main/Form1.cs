@@ -81,6 +81,7 @@ namespace KT_Data_Support_main
 
             Team team_to_add = new Team { id = current_kill_teams.Count + 1, Name = name, Rules = rules, Ploys = ploys, Faction_equipment = faction_equip, Archetypes = archetypes, Datacards = operatives_id };
             current_kill_teams.Add(team_to_add);
+            foreach (Team i in current_kill_teams) { Console.WriteLine($"ID {i.id}, Name {i.Name}"); }
 
             using (FileStream fs = new FileStream(path, FileMode.Create))
             {
@@ -148,7 +149,6 @@ namespace KT_Data_Support_main
 
             return $"Team with ID {to_delete_id+1} succsesfully deleted";
         }
-
         static string add_new_operative(JsonSerializerOptions options, string path, List<Operative> current_operatives_list, string team_name, string name, int apl_stat, int m_stat, int sv_stat, int w_stat, List<int> weapons_id, string abilities, List<string> keys)
         {
             if (team_name is null | team_name == "")
@@ -501,7 +501,7 @@ namespace KT_Data_Support_main
                     }
                 }
             }
-            foreach (string s in weapon_rules_names) { Console.WriteLine(s); }
+
         }
 
         private void listBox_Weapons_SelectedIndexChanged(object sender, EventArgs e)
