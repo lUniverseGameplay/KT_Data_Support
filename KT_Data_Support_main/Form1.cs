@@ -81,7 +81,7 @@ namespace KT_Data_Support_main
 
             Team team_to_add = new Team { id = current_kill_teams.Count + 1, Name = name, Rules = rules, Ploys = ploys, Faction_equipment = faction_equip, Archetypes = archetypes, Datacards = operatives_id };
             current_kill_teams.Add(team_to_add);
-            foreach (Team i in current_kill_teams) { Console.WriteLine($"ID {i.id}, Name {i.Name}"); }
+            //foreach (Team i in current_kill_teams) { Console.WriteLine($"ID {i.id}, Name {i.Name}"); }
 
             using (FileStream fs = new FileStream(path, FileMode.Create))
             {

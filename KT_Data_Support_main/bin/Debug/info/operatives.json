@@ -38,5 +38,22 @@
       "ASTRA MILITARUM",
       "SHARPSHOOTER"
     ]
+  },
+  {
+    "id": 3,
+    "Team_name": "Deathwatch",
+    "Name": "Deathwatch Sergeant 2",
+    "APL": 3,
+    "Move": 6,
+    "Save": 3,
+    "Wounds": 15,
+    "Weapons_id": [
+      1
+    ],
+    "Abilities": "Adaptable Armoury: You can select one additional equipment option.",
+    "Keywords": [
+      "DEATHWATCH",
+      "IMPERIUM"
+    ]
   }
 ]
